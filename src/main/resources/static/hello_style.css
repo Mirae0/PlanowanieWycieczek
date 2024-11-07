@@ -1,0 +1,27 @@
+body {
+    background-color: #181b1d !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+.center {
+    background-color: darkolivegreen;
+    color:white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+.button-container {
+    margin-top: 20px;
+}
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: white;
+    font-weight: bold;
+    color: darkolivegreen;
+}

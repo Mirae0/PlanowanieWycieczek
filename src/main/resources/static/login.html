@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Logowanie</title>
+    <link rel="stylesheet" href="login_style.css">
 </head>
 <body>
-<h2>Logowanie</h2>
-<form>
-    <label for="username">Nazwa użytkownika:</label>
-    <input type="text" id="username" name="username"><br><br>
-    <label for="password">Hasło:</label>
-    <input type="password" id="password" name="password"><br><br>
-    <label for="captcha">Captcha:</label>
-    <input type="text" id="captcha" name="captcha" placeholder="Przepisz kod"><br><br>
-    <button type="submit">Zaloguj się</button>
-</form>
+<h2 id="log_h2">Logowanie</h2>
+<div class="login">
+    <form action="/loginP" method="get">
+        <label for="name">Nazwa użytkownika:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <label for="captcha">Captcha:</label>
+        <input type="text" id="captcha" name="captcha" placeholder="Przepisz kod"><br><br>
+        <button type="submit">Zaloguj się</button>
+    </form>
+</div>
+
+
 </body>
 </html>
