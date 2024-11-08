@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pl"  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="hello_style.css">
+    <meta charset="UTF-8">
+    <title>Hello User</title>
+</head>
+<body>
+    <div class="center">
+        <h2>Witaj Użytkowniku</h2>
+        <p> <strong th:text="${Uname}"> </strong></p>   <!-- Mozliwe ze nie widzi Uname bo jest w static a nie template -->
+        <a href="/index.html">GO BACK</a>
+    </div>
+
+</body>
+</html>
