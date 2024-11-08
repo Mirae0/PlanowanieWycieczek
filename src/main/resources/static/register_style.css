@@ -41,3 +41,10 @@ button {
     font-weight: bold;
     color: darkolivegreen;
 }
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 14px;
+    display: none;
+}
