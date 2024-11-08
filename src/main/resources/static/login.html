@@ -4,21 +4,32 @@
     <meta charset="UTF-8">
     <title>Logowanie</title>
     <link rel="stylesheet" href="login_style.css">
-</head>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script></head>
 <body>
 <h2 id="log_h2">Logowanie</h2>
 <div class="login">
-    <form action="/loginP" method="get">
+    <form id="login-form" action="/loginP" method="get">
         <label for="name">Nazwa użytkownika:</label>
         <input type="text" id="name" name="name"><br><br>
         <label for="password">Hasło:</label>
         <input type="password" id="password" name="password"><br><br>
-        <label for="captcha">Captcha:</label>
-        <input type="text" id="captcha" name="captcha" placeholder="Przepisz kod"><br><br>
+        <div class="g-recaptcha" data-sitekey="6LcEInkqAAAAALCs-ywabVNebs_lFatnXKY74E8l"></div>
+        <div id="error-message" class="error-message" style="display: none;">
+            Proszę potwierdzić, że nie jesteś robotem.
+        </div>
         <button type="submit">Zaloguj się</button>
     </form>
 </div>
+<script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        if (grecaptcha.getResponse() === "") {
 
-
+            event.preventDefault();
+            document.getElementById('error-message').style.display = 'block';
+        } else {
+            document.getElementById('error-message').style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>
