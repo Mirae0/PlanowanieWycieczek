@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Logowanie</title>
     <link rel="stylesheet" href="login_style.css">
+<<<<<<< Updated upstream
+=======
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+>>>>>>> Stashed changes
 </head>
 <body>
 <h2 id="log_h2">Logowanie</h2>
 <div class="login">
+<<<<<<< Updated upstream
     <form action="/loginP" method="get">
         <label for="name">Nazwa użytkownika:</label>
         <input type="text" id="name" name="name"><br><br>
@@ -20,5 +25,19 @@
 </div>
 
 
+=======
+    <form id="login-form" action="/login" method="post" th:object="${user}">
+        <label for="username">Nazwa użytkownika:</label>
+        <input type="text" id="username" name="username" th:field="*{username}" required><br><br>
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password" th:field="*{password}" required><br><br>
+        <div class="g-recaptcha" data-sitekey="6LcEInkqAAAAALCs-ywabVNebs_lFatnXKY74E8l"></div>
+        <div th:if="${error != null}" class="error-message" style="color: red;">
+            <p th:text="${error}"></p>
+        </div>
+        <button type="submit">Zaloguj się</button>
+    </form>
+</div>
+>>>>>>> Stashed changes
 </body>
 </html>
