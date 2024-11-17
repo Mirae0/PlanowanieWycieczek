@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl">
 <head>
   <meta charset="UTF-8">
   <title>Rejestracja</title>
   <link rel="stylesheet" href="register_style.css">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <h2 id="reg_h2">Rejestracja</h2>
 <div class="register">
-  <form action="/register" method="post" th:object="${user}">
+  <form>
     <label for="username">Nazwa użytkownika:</label>
-    <input type="text" id="username" name="username" th:field="*{username}" required><br><br>
+    <input type="text" id="username" name="username"><br><br>
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" th:field="*{email}" required><br><br>
+    <input type="email" id="email" name="email"><br><br>
     <label for="password">Hasło:</label>
-    <input type="password" id="password" name="password" th:field="*{password}" required><br><br>
-    <div class="g-recaptcha" data-sitekey="6LcEInkqAAAAALCs-ywabVNebs_lFatnXKY74E8l"></div>
-    <div th:if="${error != null}" class="error-message" style="color: red;">
-      <p th:text="${error}"></p>
-    </div>
+    <input type="password" id="password" name="password"><br><br>
+    <label for="captcha">Captcha:</label>
+    <input type="text" id="captcha" name="captcha" placeholder="Przepisz kod"><br><br>
     <button type="submit">Zarejestruj się</button>
   </form>
 </div>
