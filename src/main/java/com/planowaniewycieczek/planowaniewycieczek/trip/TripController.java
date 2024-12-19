@@ -2,6 +2,7 @@ package com.planowaniewycieczek.planowaniewycieczek.trip;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,5 +44,11 @@ public class TripController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(trip);
+    }
+
+    @GetMapping("/")
+    public String wycieczka(Model model) {
+        model.addAttribute("alltriplist", tripService.getAllTrips());
+        return "index";
     }
 }

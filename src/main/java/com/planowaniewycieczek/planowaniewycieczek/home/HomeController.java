@@ -1,4 +1,4 @@
-package com.planowaniewycieczek.planowaniewycieczek;
+package com.planowaniewycieczek.planowaniewycieczek.home;
 
 import com.planowaniewycieczek.planowaniewycieczek.user.User;
 import com.planowaniewycieczek.planowaniewycieczek.user.UserService;
@@ -7,10 +7,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @Controller
 public class HomeController {
 
     private final UserService userService;
+
+    @GetMapping("/")
+    public String index(Model model) {
+        return "index";
+    }
+
+    @GetMapping("/wycieczki")
+    public String wycieczki(Model model) {
+        model.addAttribute("testowka","TESTOWY THYMELEAF");
+        return "wycieczki";
+    }
+
+    @GetMapping("/znajomi")
+    public String znajomi(Model model) {
+        return "znajomi";
+    }
 
     @Autowired
     public HomeController(UserService userService) {

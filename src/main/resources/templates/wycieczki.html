@@ -1,29 +1,30 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Planowanie Wycieczek</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
-    <script type="text/javascript" src="language.js" defer></script>
-    <script type="text/javascript" src="darkmode.js" defer></script>
+    <script type="text/javascript" src="../static/language.js" defer></script>
+    <script type="text/javascript" src="../static/darkmode.js" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar">
     <ul>
         <li class="logo">
-            <a href="index.html"><img src="logo.jpg" alt="logo"></a>
+            <a href="index.html"><img th:src="@{/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
             <input type="text" placeholder="Szukaj">
             <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></button>
         </div>
         <li><a href="wycieczki.html">WYCIECZKI</a></li>
-        <li><a href="/dodajwycieczke.html">ZAPLANUJ WYCIECZKĘ</a></li>
-        <li><a href="/ranking.html">RANKING</a></li>
-        <li><a href="/znajomi.html">ZNAJOMI</a></li>
-        <li><a href="/login.html">ZALOGUJ SIĘ</a></li>
+        <li><a href="/templates/dodajwycieczke.htmleczke.html">ZAPLANUJ WYCIECZKĘ</a></li>
+        <li><a href="/templates/ranking.htmlnking.html">RANKING</a></li>
+        <li><a href="/templates/znajomi.htmlajomi.html">ZNAJOMI</a></li>
+        <li><a href="/templates/login.htmllogin.html">ZALOGUJ SIĘ</a></li>
     </ul>
 </nav>
 
@@ -33,8 +34,9 @@
         <p>Przeglądaj zaplanowane wycieczki</p>
     </header>
 
-    <ul id="/api/trips">
-
+    <p th:text="${testowka}"></p>
+    <ul id="trips" th:each="trip:${alltriplist}">
+        <li th:text="${trip.getfromLocation()}"></li>
     </ul>
 </div>
 
@@ -64,7 +66,7 @@
 <script>
     async function loadTrips() {
         const tripList = document.getElementById('trips');
-        tripList.innerHTML = '';
+        tripList.innerHTML='';
 
         try {
             const response = await fetch('/api/trips');
@@ -80,7 +82,7 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', loadTrips);
+   // document.addEventListener('DOMContentLoaded', loadTrips);
 </script>
 </body>
 </html>

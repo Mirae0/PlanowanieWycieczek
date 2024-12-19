@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pl"  xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
-    <script type="text/javascript" src="language.js" defer></script>
-    <script type="text/javascript" src="darkmode.js" defer></script>
+    <script type="text/javascript" src="../static/language.js" defer></script>
+    <script type="text/javascript" src="../static/darkmode.js" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <title>Planowanie Wycieczek</title>
@@ -13,7 +13,7 @@
 <nav class="navbar">
     <ul>
         <li class="logo">
-            <a href="index.html"><img src="logo.jpg" alt="logo"></a>
+            <a href="index.html"><img src="../static/logo.jpg" alt="logo"></a>
         </li>
         <div class="search-container">
             <input type="text" placeholder="Szukaj">
@@ -31,7 +31,7 @@
     <div class="center">
         <h2>Witaj Użytkowniku</h2>
         <p> <strong th:text="${Uname}"> </strong></p>
-        <a href="/index.html">GO BACK</a>
+        <a href="/templates/index.htmlindex.html">GO BACK</a>
     </div>
 
 </body>
