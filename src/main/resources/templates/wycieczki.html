@@ -7,7 +7,7 @@ xmlns:th="https://thymeleaf.org">
     <link rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
     <script type="text/javascript" src="../static/language.js" defer></script>
-    <script type="text/javascript" src="../static/darkmode.js" defer></script>
+    <script type="text/javascript" th:src="@{/darkmode.js}" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -20,11 +20,11 @@ xmlns:th="https://thymeleaf.org">
             <input type="text" placeholder="Szukaj">
             <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></button>
         </div>
-        <li><a href="wycieczki.html">WYCIECZKI</a></li>
-        <li><a href="/templates/dodajwycieczke.htmleczke.html">ZAPLANUJ WYCIECZKĘ</a></li>
-        <li><a href="/templates/ranking.htmlnking.html">RANKING</a></li>
-        <li><a href="/templates/znajomi.htmlajomi.html">ZNAJOMI</a></li>
-        <li><a href="/templates/login.htmllogin.html">ZALOGUJ SIĘ</a></li>
+        <li><a th:href="@{/wycieczki}">WYCIECZKI</a></li>
+        <li><a th:href="@{/dodajwycieczke}">ZAPLANUJ WYCIECZKĘ</a></li>
+        <li><a th:href="@{/ranking}">RANKING</a></li>
+        <li><a th:href="@{/znajomi}">ZNAJOMI</a></li>
+        <li><a th:href="@{/login}">ZALOGUJ SIĘ</a></li>
     </ul>
 </nav>
 
@@ -35,9 +35,27 @@ xmlns:th="https://thymeleaf.org">
     </header>
 
     <p th:text="${testowka}"></p>
-    <ul id="trips" th:each="trip:${alltriplist}">
-        <li th:text="${trip.getfromLocation()}"></li>
+    <ul id="trips" th:each="trip:${wyc}">
+        <li th:text="${trip.showTrip()}"></li>
     </ul>
+
+    <table class="tripTable">
+        <thead class="tripTableHead">
+        <td>ID</td>
+        <td>Start</td>
+        <td>Koniec</td>
+        <td>Data</td>
+        </thead>
+        <tbody th:each="trip:${wyc}">
+        <tr class="tripTableTr">
+            <td th:text="${trip.getId()}"></td>
+            <td th:text="${trip.getFromLocation()}"></td>
+            <td th:text="${trip.getToLocation()}"></td>
+            <td th:text="${trip.getTripDate()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <button id="theme-switch">

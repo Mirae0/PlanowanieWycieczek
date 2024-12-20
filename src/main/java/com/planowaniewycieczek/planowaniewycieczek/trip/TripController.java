@@ -46,9 +46,4 @@ public class TripController {
         return ResponseEntity.ok(trip);
     }
 
-    @GetMapping("/")
-    public String wycieczka(Model model) {
-        model.addAttribute("alltriplist", tripService.getAllTrips());
-        return "index";
-    }
 }

@@ -60,6 +60,10 @@ public class Trip {
         this.tripDate = tripDate;
     }
 
+    public String showTrip(){
+        return "Wycieczka "+this.getId()+" z "+this.getFromLocation()+" do "+this.getToLocation();
+    }
+
     @Override
     public String toString() {
         return "Trip [id=" + id + ", fromLocation=" + fromLocation + ", toLocation=" + toLocation + ", tripDate=" + tripDate + "]";

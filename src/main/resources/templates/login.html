@@ -20,11 +20,11 @@
             <input type="text" placeholder="Szukaj">
             <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></i></button>
         </div>
-        <li><a href="/templates/wycieczki.htmleczki.html">WYCIECZKI</a></li>
-        <li><a href="/templates/dodajwycieczke.htmleczke.html">ZAPLANUJ WYCIECZKĘ</a></li>
-        <li><a href="ranking.html">RANKING</a></li>
-        <li><a href="/templates/znajomi.htmlajomi.html">ZNAJOMI</a></li>
-        <li><a href="login.html">ZALOGUJ SIĘ</a></li>
+        <li><a th:href="@{/wycieczki}">WYCIECZKI</a></li>
+        <li><a th:href="@{/dodajwycieczke}">ZAPLANUJ WYCIECZKĘ</a></li>
+        <li><a th:href="@{/ranking}">RANKING</a></li>
+        <li><a th:href="@{/znajomi}">ZNAJOMI</a></li>
+        <li><a th:href="@{/login}">ZALOGUJ SIĘ</a></li>
     </ul>
 </nav>
 
