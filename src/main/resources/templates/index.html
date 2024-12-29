@@ -2,29 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Planowanie Wycieczek</title>
+    <title id="page-title">Trip Planning</title>
     <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
-    <script type="text/javascript" src="../static/darkmode.js" defer></script>
-    <script type="text/javascript" src="../static/language.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous">
+    <script type="text/javascript" th:src="@{/darkmode.js}" defer></script>
+    <script type="text/javascript" src="../static/language-switch.js" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar">
     <ul>
         <li class="logo">
-            <a href="index.html"><img src="../static/logo.jpg" alt="logo"></a>
+            <a th:href="@{/index}"><img th:src="@{/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
-            <input type="text" placeholder="Szukaj">
-            <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></i></button>
+            <input type="text" id="search-placeholder" placeholder="Search">
+            <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></button>
         </div>
 
-        <li><a th:href="@{/wycieczki}">WYCIECZKI</a></li>
-        <li><a th:href="@{/dodajwycieczke}">ZAPLANUJ WYCIECZKĘ</a></li>
-        <li><a th:href="@{/ranking}">RANKING</a></li>
-        <li><a th:href="@{/znajomi}">ZNAJOMI</a></li>
-        <li><a th:href="@{/login}">ZALOGUJ SIĘ</a></li>
+        <li><a id="menu-trips" th:href="@{/wycieczki}">TRIPS</a></li>
+        <li><a id="menu-plan" th:href="@{/dodajwycieczke}">PLAN A TRIP</a></li>
+        <li><a id="menu-ranking" th:href="@{/ranking}">RANKING</a></li>
+        <li><a id="menu-friends" th:href="@{/znajomi}">FRIENDS</a></li>
+        <li><a id="menu-login" th:href="@{/login}">LOG IN</a></li>
     </ul>
 </nav>
 
@@ -47,6 +47,6 @@
     </svg>
 </button>
 
-
+<script src="language-switch.js"></script>
 </body>
 </html>
