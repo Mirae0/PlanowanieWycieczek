@@ -14,7 +14,7 @@
 <nav class="navbar">
     <ul>
         <li class="logo">
-            <a href="index.html"><img src="../static/logo.jpg" alt="logo"></a>
+            <a href="index.html"><img th:src="@{/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
             <input type="text" placeholder="Szukaj">
@@ -57,7 +57,7 @@
     </form>
 
     <div class="sign-up-link">
-        <p>Pierwszy raz? <a href="register.html">Załóż konto</a></p>
+        <p>Pierwszy raz? <a th:href="@{/register}">Załóż konto</a></p>
     </div>
 </div>
 <button id="theme-switch">
