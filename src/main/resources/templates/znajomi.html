@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Planowanie Wycieczek - znajomi</title>
+    <title data-i18n="title">Planowanie Wycieczek - znajomi</title>
     <link rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
     <script type="text/javascript" src="../static/language-switch.js" defer></script>
@@ -16,29 +16,29 @@
             <a th:href="@{/index}"><img th:src="@{/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="Szukaj">
+            <input type="text" id="search-input" placeholder="Szukaj" data-i18n-placeholder="search">
             <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></button>
         </div>
-        <li><a id="menu-trips" th:href="@{/wycieczki}">WYCIECZKI</a></li>
-        <li><a id="menu-plan" th:href="@{/dodajwycieczke}">ZAPLANUJ WYCIECZKĘ</a></li>
-        <li><a id="menu-ranking" th:href="@{/ranking}">RANKING</a></li>
-        <li><a id="menu-friends" th:href="@{/znajomi}">ZNAJOMI</a></li>
-        <li><a id="menu-login" th:href="@{/login}">ZALOGUJ SIĘ</a></li>
+        <li><a id="menu-trips" th:href="@{/wycieczki}" data-i18n="menu.trips">WYCIECZKI</a></li>
+        <li><a id="menu-plan" th:href="@{/dodajwycieczke}" data-i18n="menu.plan">ZAPLANUJ WYCIECZKĘ</a></li>
+        <li><a id="menu-ranking" th:href="@{/ranking}" data-i18n="menu.ranking">RANKING</a></li>
+        <li><a id="menu-friends" th:href="@{/znajomi}" data-i18n="menu.friends">ZNAJOMI</a></li>
+        <li><a id="menu-login" th:href="@{/login}" data-i18n="menu.login">ZALOGUJ SIĘ</a></li>
     </ul>
 </nav>
 
 <div class="container-custom">
     <div class="LPanel-custom">
-        <h2 id="friends-title">Twoi znajomi</h2>
+        <h2 id="friends-title" data-i18n="friends-title">Twoi znajomi</h2>
         <ul id="friends-list">
             <!-- Lista znajomych -->
         </ul>
     </div>
     <div class="RPanel-custom">
-        <h2 id="search-title">Wyszukiwanie użytkowników</h2>
+        <h2 id="search-title" data-i18n="search-title">Wyszukiwanie użytkowników</h2>
         <div class="search-container-custom">
-            <input type="email" id="emailInput" placeholder=" Wpisz adres email" required>
-            <button type="button" id="search-user">Szukaj</button>
+            <input type="email" id="emailInput" placeholder="Wpisz adres email" required data-i18n-placeholder="emailInput">
+            <button type="button" id="search-user" data-i18n="search-user">Szukaj</button>
         </div>
         <ul id="users-list"></ul>
     </div>
@@ -70,6 +70,12 @@
 <script>
     const translations = {
         en: {
+            "title": "Trip Planning",
+            "menu.trips": "TRIPS",
+            "menu.plan": "PLAN A TRIP",
+            "menu.ranking": "RANKING",
+            "menu.friends": "FRIENDS",
+            "menu.login": "LOG IN",
             "friends-title": "Friends",
             "search-title": "Search a User",
             "emailInput": "Enter email address",
@@ -78,11 +84,15 @@
             "menu-plan": "PLAN A TRIP",
             "menu-ranking": "RANKING",
             "menu-friends": "FRIENDS",
-            "menu-login": "LOG IN",
-            "no-users-found": "No users found with the provided email.",
-            "add-friend-btn": "Add to Friends"
+            "menu-login": "LOG IN"
         },
         pl: {
+            "title": "Planowanie Wycieczek",
+            "menu.trips": "WYCIECZKI",
+            "menu.plan": "ZAPLANUJ WYCIECZKĘ",
+            "menu.ranking": "RANKING",
+            "menu.friends": "ZNAJOMI",
+            "menu.login": "ZALOGUJ SIĘ",
             "friends-title": "Znajomi",
             "search-title": "Wyszukiwanie użytkowników",
             "emailInput": "Wpisz adres email",
@@ -91,38 +101,79 @@
             "menu-plan": "ZAPLANUJ WYCIECZKĘ",
             "menu-ranking": "RANKING",
             "menu-friends": "ZNAJOMI",
-            "menu-login": "ZALOGUJ SIĘ",
-            "no-users-found": "Użytkownik o podanym emailu nie został znaleziony.",
-            "add-friend-btn": "Dodaj do znajomych"
+            "menu-login": "ZALOGUJ SIĘ"
         }
     };
 
     function changeLanguage(lang) {
-        document.querySelectorAll("[id]").forEach(el => {
-            const key = el.id;
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
             if (translations[lang][key]) {
-                if (el.tagName === "INPUT") {
-                    el.placeholder = translations[lang][key];
-                } else {
-                    el.textContent = translations[lang][key];
-                }
+                el.textContent = translations[lang][key];
+            }
+        });
+
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+            const key = el.getAttribute("data-i18n-placeholder");
+            if (translations[lang][key]) {
+                el.placeholder = translations[lang][key];
             }
         });
     }
 
-    document.getElementById("language-switch").addEventListener("click", () => {
-        const currentLang = document.documentElement.lang;
-        const newLang = currentLang === "en" ? "pl" : "en";
-        document.documentElement.lang = newLang;
-        changeLanguage(newLang);
-    });
+    // Get saved language from localStorage or default to "en"
+    const savedLang = localStorage.getItem('language') || 'en';
+    document.documentElement.lang = savedLang;
+    changeLanguage(savedLang);
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const currentLang = document.documentElement.lang || "pl";
+    document.getElementById("language-switch").addEventListener("click", () => {
+        const currentLang = document.documentElement.lang === "pl" ? "en" : "pl";
+        document.documentElement.lang = currentLang;
+        localStorage.setItem('language', currentLang);  // Save the selected language
         changeLanguage(currentLang);
     });
-</script>
 
+    document.getElementById('search-user').addEventListener('click', () => {
+        const email = document.getElementById('emailInput').value;
+        fetch('/api/user/searchUserByEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `email=${encodeURIComponent(email)}`,
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Błąd podczas wyszukiwania użytkowników');
+                }
+                return response.json();
+            })
+            .then(users => {
+                const userList = document.getElementById('users-list');
+                userList.innerHTML = '';
+                if (users.length === 0) {
+                    userList.innerHTML = '<li>Użytkownik o podanym emailu nie został znaleziony.</li>';
+                } else {
+                    users.forEach(user => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+        <div>
+            <p><strong>ID:</strong> ${user.id}</p>
+            <p><strong>Nazwa użytkownika:</strong> ${user.username}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <button class="add-friend-btn">Dodaj do znajomych</button>
+        </div>
+    `;
+                        userList.appendChild(li);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Wystąpił błąd podczas wyszukiwania użytkowników.');
+            });
+    });
+</script>
 
 </body>
 </html>

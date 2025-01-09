@@ -143,8 +143,7 @@ body {
     background-color: var(--login-color); 
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
-    margin: 80px auto; 
-    
+    margin: 80px auto;
 }
 
 .login-header {
@@ -400,6 +399,31 @@ section a {
 
 .container-custom .search-container-custom button:hover {
     background-color: #0056b3;
+}
+
+.map-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 1080px;
+    height: 800px;
+    padding: 30px;
+    background-color: var(--login-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin: 10px auto;
+}
+
+.map-header {
+    text-align: center;
+    margin: 20px 0 40px 0;
+}
+
+.map-header header {
+    color: var(--txt-color);
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
 

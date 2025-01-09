@@ -13,7 +13,7 @@
 <nav class="navbar">
     <ul>
         <li class="logo">
-            <a href="index.html"><img th:src="@{/logo.jpg}" alt="logo"></a>
+            <a th:href="@{/index}"><img th:src="@{/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
             <input type="text" placeholder="Szukaj" data-i18n-placeholder="search">
@@ -33,7 +33,6 @@
         <p data-i18n="header.subtitle">Przeglądaj zaplanowane wycieczki</p>
     </header>
 
-    <p th:text="${testowka}"></p>
     <ul id="trips" th:each="trip : ${wyc}">
         <li th:text="${trip.showTrip()}"></li>
     </ul>
@@ -82,9 +81,68 @@
 </button>
 
 <script>
+    const translations = {
+        pl: {
+            "title": "Planowanie Wycieczek",
+            "menu.trips": "WYCIECZKI",
+            "menu.plan": "ZAPLANUJ WYCIECZKĘ",
+            "menu.ranking": "RANKING",
+            "menu.friends": "ZNAJOMI",
+            "menu.login": "ZALOGUJ SIĘ",
+            "header.title": "Lista Wycieczek",
+            "header.subtitle": "Przeglądaj zaplanowane wycieczki",
+            "table.id": "ID",
+            "table.start": "Start",
+            "table.end": "Koniec",
+            "table.date": "Data"
+        },
+        en: {
+            "title": "Trip Planning",
+            "menu.trips": "TRIPS",
+            "menu.plan": "PLAN A TRIP",
+            "menu.ranking": "RANKING",
+            "menu.friends": "FRIENDS",
+            "menu.login": "LOG IN",
+            "header.title": "Trip List",
+            "header.subtitle": "Browse planned trips",
+            "table.id": "ID",
+            "table.start": "Start",
+            "table.end": "End",
+            "table.date": "Date"
+        }
+    };
+
+    function changeLanguage(lang) {
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            if (translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
+        });
+
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+            const key = el.getAttribute("data-i18n-placeholder");
+            if (translations[lang][key]) {
+                el.placeholder = translations[lang][key];
+            }
+        });
+    }
+
+    // Get saved language from localStorage or default to "en"
+    const savedLang = localStorage.getItem('language') || 'en';
+    document.documentElement.lang = savedLang;
+    changeLanguage(savedLang);
+
+    document.getElementById("language-switch").addEventListener("click", () => {
+        const currentLang = document.documentElement.lang === "pl" ? "en" : "pl";
+        document.documentElement.lang = currentLang;
+        localStorage.setItem('language', currentLang);  // Save the selected language
+        changeLanguage(currentLang);
+    });
+
     async function loadTrips() {
         const tripList = document.getElementById('trips');
-        tripList.innerHTML = '';
+        tripList.innerHTML='';
 
         try {
             const response = await fetch('/api/trips');
@@ -100,7 +158,7 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', loadTrips);
+    // document.addEventListener('DOMContentLoaded', loadTrips);
 </script>
 </body>
 </html>
