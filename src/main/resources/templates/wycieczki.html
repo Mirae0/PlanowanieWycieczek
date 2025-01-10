@@ -16,7 +16,7 @@
             <a th:href="@{/index}"><img th:src="@{/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
-            <input type="text" placeholder="Szukaj" data-i18n-placeholder="search">
+            <input type="text" id="search-placeholder" placeholder="Search" data-i18n-placeholder="search">
             <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></button>
         </div>
         <li><a th:href="@{/wycieczki}" data-i18n="menu.trips">WYCIECZKI</a></li>
@@ -94,7 +94,8 @@
             "table.id": "ID",
             "table.start": "Start",
             "table.end": "Koniec",
-            "table.date": "Data"
+            "table.date": "Data",
+            "search": "Szukaj",
         },
         en: {
             "title": "Trip Planning",
@@ -108,7 +109,8 @@
             "table.id": "ID",
             "table.start": "Start",
             "table.end": "End",
-            "table.date": "Date"
+            "table.date": "Date",
+            "search": "Search",
         }
     };
 

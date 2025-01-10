@@ -61,11 +61,11 @@ public class Trip {
     }
 
     public String showTrip(){
-        return "Wycieczka "+this.getId()+" z "+this.getFromLocation()+" do "+this.getToLocation();
+        return "Wycieczka "+ this.getId()+ " z " + this.getFromLocation() + " do " + this.getToLocation();
     }
 
     @Override
     public String toString() {
-        return "Trip [id=" + id + ", fromLocation=" + fromLocation + ", toLocation=" + toLocation + ", tripDate=" + tripDate + "]";
+        return "Trip [id=" + id + ", fromLocation= " + fromLocation + ", toLocation=" + toLocation + ", tripDate=" + tripDate + "]";
     }
 }

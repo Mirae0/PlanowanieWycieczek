@@ -16,7 +16,7 @@
             <a th:href="@{/index}"><img th:src="@{/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
-            <input type="text" placeholder="Szukaj" data-i18n-placeholder="search">
+            <input type="text" id="search-placeholder" placeholder="Search" data-i18n-placeholder="search">
             <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></button>
         </div>
         <li><a th:href="@{/wycieczki}" data-i18n="menu.trips">WYCIECZKI</a></li>
@@ -94,7 +94,8 @@
             "form.password": "Hasło",
             "form.confirmPassword": "Powtórz hasło",
             "form.agree": "Akceptuję regulamin",
-            "form.submit": "Zaloguj się"
+            "form.submit": "Zaloguj się",
+            "search": "Szukaj",
         },
         en: {
             "title": "Trip Planning",
@@ -109,7 +110,8 @@
             "form.password": "Password",
             "form.confirmPassword": "Confirm password",
             "form.agree": "I accept the terms",
-            "form.submit": "Sign in"
+            "form.submit": "Sign in",
+            "search": "Search",
         }
     };
 

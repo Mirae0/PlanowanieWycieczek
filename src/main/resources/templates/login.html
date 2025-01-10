@@ -45,7 +45,7 @@
                 <label for="check" data-i18n="form.rememberPassword">Zapamiętaj hasło</label>
             </section>
             <section>
-                <a th:href="@{/forgotPassword}" data-i18n="form.forgotPassword">Zapomniałeś hasła?</a>
+                <a href="/forgotPassword" data-i18n="form.forgotPassword">Zapomniałeś hasła?</a>
             </section>
         </div>
 
@@ -56,9 +56,15 @@
         </div>
     </form>
 
-    <div class="sign-up-link">
-        <p data-i18n="form.firstTime">Pierwszy raz? <a th:href="@{/register}" data-i18n="form.signUp">Załóż konto</a></p>
+    <div class="sign-up-link" style="display: block;">
+        <p>
+            <a href="/register" th:href="@{/register}" data-i18n="form.signUp">Załóż konto</a>
+        </p>
     </div>
+
+
+
+
 </div>
 
 <button id="theme-switch">
@@ -101,7 +107,8 @@
             "form.forgotPassword": "Zapomniałeś hasła?",
             "form.submit": "Zaloguj się",
             "form.firstTime": "Pierwszy raz?",
-            "form.signUp": "Załóż konto"
+            "form.signUp": "Załóż konto",
+            "search": "Szukaj",
         },
         en: {
             "title": "Trip Planning",
@@ -117,7 +124,9 @@
             "form.forgotPassword": "Forgot your password?",
             "form.submit": "Log in",
             "form.firstTime": "First time?",
-            "form.signUp": "Sign up"
+            "form.signUp": "Sign up",
+            "search": "Search",
+
         }
     };
 

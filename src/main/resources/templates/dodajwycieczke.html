@@ -16,7 +16,7 @@
             <a th:href="@{/index}"><img th:src="@{/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
-            <input type="text" id="search-input" placeholder="Szukaj">
+            <input type="text" id="search-placeholder" placeholder="Search" data-i18n-placeholder="search">
             <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></button>
         </div>
         <li><a id="menu-trips" th:href="@{/wycieczki}">WYCIECZKI</a></li>
@@ -91,7 +91,8 @@
             "form-date": "Trip Date:",
             "form-submit": "Add Trip",
             "from" : "Starting point",
-            "to" : "Destination"
+            "to" : "Destination",
+            "search": "Search",
         },
         pl: {
             "friends-title": "Znajomi",
@@ -109,7 +110,9 @@
             "form-date": "Data wycieczki:",
             "form-submit": "Dodaj wycieczkę",
             "from" : "Punkt początkujący",
-            "to" : "Punkt docelowy"
+            "to" : "Punkt docelowy",
+            "search": "Szukaj",
+
         }
     };
 
