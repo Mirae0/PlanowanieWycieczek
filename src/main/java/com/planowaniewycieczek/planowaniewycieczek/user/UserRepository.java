@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
-    @Query("SELECT u FROM User u WHERE u.email = :email")
-    List<User> findAllByEmail(@Param("email") String email);
+    @Query("SELECT u FROM User u WHERE u.username LIKE %:username%")
+    List<User> findAllByUsername(@Param("username") String username);
 
 
 }

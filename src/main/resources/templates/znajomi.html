@@ -41,9 +41,9 @@
             </ul>
         </div>
         <div class="RPanel-custom">
-            <h2>Wyszukiwanie użytkowników</h2>
+            <h2>Wyszukiwanie użytkowników po nazwie użytkownika</h2>
             <div class="search-container-custom">
-                <input type="email" id="emailInput" placeholder="Wpisz adres email" required>
+                <input type="text" id="usernameInput" placeholder="Wpisz nazwę użytkownika" required>
                 <button type="button" id="search-user">Szukaj</button>
             </div>
 
@@ -51,6 +51,7 @@
 
             </ul>
         </div>
+
 
 
     </div>
@@ -74,46 +75,47 @@
     </button>
 
     <script>  <!-- --------------------SCRIPT START-------------------------- -->
-        document.getElementById('search-user').addEventListener('click', () => {
-            const email = document.getElementById('emailInput').value;
-            fetch('/api/user/searchUserByEmail', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `email=${encodeURIComponent(email)}`,
+    document.getElementById('search-user').addEventListener('click', () => {
+        const username = document.getElementById('usernameInput').value;
+        fetch('/api/user/searchUserByUsername', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `username=${encodeURIComponent(username)}`,
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Błąd podczas wyszukiwania użytkowników');
+                }
+                return response.json();
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Błąd podczas wyszukiwania użytkowników');
-                    }
-                    return response.json();
-                })
-                .then(users => {
-                    const userList = document.getElementById('users-list');
-                    userList.innerHTML = '';
-                    if (users.length === 0) {
-                        userList.innerHTML = '<li>Użytkownik o podanym emailu nie został znaleziony.</li>';
-                    } else {
-                        users.forEach(user => {
-                            const li = document.createElement('li');
-                            li.innerHTML = `
-        <div>
-            <p><strong>ID:</strong> ${user.id}</p>
-            <p><strong>Nazwa użytkownika:</strong> ${user.username}</p>
-            <p><strong>Email:</strong> ${user.email}</p>
-            <button class="add-friend-btn">Dodaj do znajomych</button>
-        </div>
-    `;
-                            userList.appendChild(li);
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert('Wystąpił błąd podczas wyszukiwania użytkowników.');
-                });
-        });
+            .then(users => {
+                const userList = document.getElementById('users-list');
+                userList.innerHTML = '';
+                if (users.length === 0) {
+                    userList.innerHTML = '<li>Użytkownik o podanej nazwie nie został znaleziony.</li>';
+                } else {
+                    users.forEach(user => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                    <div>
+
+                        <p><strong>Znaleziono użytkownika:</strong> ${user.username}</p>
+
+                        <button class="add-friend-btn">Dodaj do znajomych</button>
+                    </div>
+                `;
+                        userList.appendChild(li);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Wystąpił błąd podczas wyszukiwania użytkowników.');
+            });
+    });
+
     </script>
 
 </body>

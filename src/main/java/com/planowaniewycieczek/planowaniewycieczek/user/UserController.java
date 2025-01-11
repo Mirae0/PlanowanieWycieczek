@@ -26,11 +26,10 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    @PostMapping("/searchUserByEmail")
-    public List<User> searchUserByEmail(@RequestParam("email") String email) {
-        List<User> users = userService.findUsersByEmail(email);
+    @PostMapping("/searchUserByUsername")
+    public List<User> searchUserByUsername(@RequestParam("username") String username) {
+        List<User> users = userService.findUsersByUsername(username);
         return users;
+
     }
-
-
 }
