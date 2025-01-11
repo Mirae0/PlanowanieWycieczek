@@ -18,6 +18,8 @@ public class TripController {
         this.tripService = tripService;
     }
 
+
+    //Poniższy kod umożliwia zapisywanie wycieczek do bazy danych przy wykorzystaniu formularza i metody POST
     @PostMapping
     public ResponseEntity<Trip> addTrip(@RequestBody Trip trip) {
         if (trip.getFromLocation() == null || trip.getToLocation() == null || trip.getTripDate() == null) {
@@ -28,6 +30,7 @@ public class TripController {
         return ResponseEntity.ok(savedTrip);
     }
 
+    //Przy żądaniu GET poniższy kod zwraca wszystkie wycieczki zapisane w bazie danych
     @GetMapping
     public ResponseEntity<List<Trip>> getAllTrips() {
         List<Trip> trips = tripService.getAllTrips();
@@ -37,6 +40,7 @@ public class TripController {
         return ResponseEntity.ok(trips);
     }
 
+    //Poniższy kod umożliwia zwrócenie konkretnej zapisanej wycieczki wybieranej na podstawie jej id
     @GetMapping("/{id}")
     public ResponseEntity<Trip> getTripById(@PathVariable Long id) {
         Trip trip = tripService.getTripById(id);
