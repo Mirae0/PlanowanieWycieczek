@@ -3,6 +3,10 @@ package com.planowaniewycieczek.planowaniewycieczek.trip;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+/*
+Poniższy kod określa strukturę tabeli zawierającej informacje o wycieczkach
+ */
+
 @Entity
 @Table(name = "trips")
 public class Trip {
