@@ -4,7 +4,6 @@
     <title>Planowanie Wycieczek</title>
     <link rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
-    <script type="text/javascript" src="../static/language-switch.js" defer></script>
     <script type="text/javascript" th:src="@{/darkmode.js}" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgPOabKPpXW-OiSTLVwHFcU2AREE4Il_A&callback=initMap" async defer></script>
@@ -31,19 +30,33 @@
     <div class="map-header">
         <header id="form-plan-trip-header">Zaplanuj wycieczkę</header>
     </div>
-    <form id="tripForm">
+    <form action="/trips/dodajwycieczke" method="post" enctype="multipart/form-data">
         <div class="input-box">
-            <input type="text" class="input-field" id="from" placeholder="Punkt początkowy" required>
+            <input type="text" class="input-field" id="from" name="fromLocation" placeholder="Punkt początkowy" required>
         </div>
         <div class="input-box">
-            <input type="text" class="input-field" id="to" placeholder="Punkt docelowy" required>
+            <input type="text" class="input-field" id="to" name="toLocation" placeholder="Punkt docelowy" required>
         </div>
         <div class="input-box">
-            <input type="date" id="tripDate" class="input-field" required>
+            <input type="date" id="tripDate" name="tripDate" class="input-field" required>
+        </div>
+        <div class="input-box">
+            <textarea id="tripNote" name="tripNote" placeholder="Dodaj notatkę..." class="input-field"></textarea>
+        </div>
+        <div class="input-box">
+            <input type="file" id="photos" name="photoPaths" multiple>
+        </div>
+        <div class="input-box">
+            <label for="visibility">Widoczność:</label>
+            <select name="visibility" id="visibility" required>
+                <option value="public">Publiczna</option>
+                <option value="private">Prywatna</option>
+                <option value="friends">Dla znajomych</option>
+            </select>
         </div>
         <div class="input-submit">
-            <button type="submit" class="submit-btn" id="submit"></button>
-            <label for="submit" id="form-submit">Dodaj wycieczkę</label>
+            <button type="submit" class="submit-btn" id="submit" data-i18n="form.submit">Dodaj wycieczkę</button>
+            <label for="submit">Dodaj wycieczkę</label>
         </div>
     </form>
     <div id="map" style="height: 500px; margin-top: 20px;"></div>
@@ -186,27 +199,33 @@
     document.getElementById('tripForm').addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        const from = document.getElementById('from').value;
-        const to = document.getElementById('to').value;
-        const date = document.getElementById('tripDate').value;
+        const formData = new FormData();
+        formData.append('fromLocation', document.getElementById('from').value);
+        formData.append('toLocation', document.getElementById('to').value);
+        formData.append('tripDate', document.getElementById('tripDate').value);
+        formData.append('tripNote', document.getElementById('tripNote').value);
+        formData.append('visibility', document.getElementById('visibility').value);
+
+        const photos = document.getElementById('tripPhoto').files;
+        for (const photo of photos) {
+            formData.append('photos', photo);
+        }
 
         try {
-            const response = await fetch('/api/trips', {
+            const response = await fetch('/trips/dodajwycieczke', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ fromLocation: from, toLocation: to, tripDate: date })
+                body: formData
             });
 
             if (response.ok) {
-                alert('Wycieczka została dodana!');
-                await loadTrips();
+                window.location.href = '/wycieczki';
             } else {
-                const error = await response.text();
-                alert('Wystąpił błąd: ' + error);
+                alert('Wystąpił błąd przy dodawaniu wycieczki.');
             }
         } catch (error) {
-            alert('Wystąpił błąd połączenia: ' + error.message);
+            alert('Wystąpił błąd: ' + error.message);
         }
     });
+
 
 </script>
