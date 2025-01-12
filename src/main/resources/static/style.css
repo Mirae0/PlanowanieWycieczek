@@ -425,5 +425,11 @@ section a {
     font-weight: 600;
     margin-bottom: 10px;
 }
+.trip-photos img {
+    margin: 5px;
+    border-radius: 10px;
+    max-width: 200px;
+    max-height: 200px;
+}
 
 

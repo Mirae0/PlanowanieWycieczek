@@ -1,49 +1,81 @@
 package com.planowaniewycieczek.planowaniewycieczek.trip;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/trips")
-public class TripController {
+import org.slf4j.Logger;
 
+@Controller
+@RequestMapping("/trips")
+public class TripController {
     private final TripService tripService;
+    private static final Logger logger = LoggerFactory.getLogger(TripController.class);
 
     @Autowired
     public TripController(TripService tripService) {
         this.tripService = tripService;
     }
 
-    @PostMapping
-    public ResponseEntity<Trip> addTrip(@RequestBody Trip trip) {
-        if (trip.getFromLocation() == null || trip.getToLocation() == null || trip.getTripDate() == null) {
-            return ResponseEntity.badRequest().build();
-        }
+    @PostMapping("/dodajwycieczke")
+    public String addTrip(@ModelAttribute Trip trip,
+                          @RequestParam("photoPaths") MultipartFile[] photos,
+                          Model model) {
+        try {
 
-        Trip savedTrip = tripService.saveTrip(trip);
-        return ResponseEntity.ok(savedTrip);
+            if (trip.getFromLocation() == null || trip.getToLocation() == null || trip.getTripDate() == null) {
+                return "redirect:/trips/dodajwycieczke?error=true";
+            }
+            if (trip.getTripNote() == null) {
+                trip.setTripNote("");
+            }
+
+            if (trip.getVisibility() == null) {
+                trip.setVisibility("public");
+            }
+            tripService.saveTrip(trip);
+            Path imagesDirectory = Paths.get("src/main/resources/static/images");
+            if (!Files.exists(imagesDirectory)) {
+                Files.createDirectories(imagesDirectory);
+            }
+            StringBuilder photoPaths = new StringBuilder();
+            for (MultipartFile photo : photos) {
+                if (!photo.isEmpty()) {
+                    String fileName = photo.getOriginalFilename();
+                    Path path = Paths.get("src/main/resources/static/images/" + fileName);
+                    Files.write(path, photo.getBytes());
+                    photoPaths.append("images/").append(fileName).append(", ");
+                }
+            }
+            if (photoPaths.length() > 0) {
+                trip.setPhotos(photoPaths.toString());
+            } else {
+                trip.setPhotos("");
+            }
+            tripService.saveTrip(trip);
+            return "redirect:/wycieczki";
+        } catch (IOException e) {
+            logger.error("Błąd podczas zapisywania zdjęć: ", e);
+            model.addAttribute("error", "Wystąpił błąd podczas zapisywania zdjęć.");
+            return "dodajwycieczke";
+        }
     }
 
-    @GetMapping
-    public ResponseEntity<List<Trip>> getAllTrips() {
+
+    @GetMapping("/wycieczki")
+    public String getTrips(Model model) {
         List<Trip> trips = tripService.getAllTrips();
-        if (trips.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(trips);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Trip> getTripById(@PathVariable Long id) {
-        Trip trip = tripService.getTripById(id);
-        if (trip == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(trip);
+        model.addAttribute("trips", trips);
+        return "wycieczki";
     }
 
 }

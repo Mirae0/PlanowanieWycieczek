@@ -2,10 +2,9 @@
 <html lang="pl" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title data-i18n="title">Planowanie Wycieczek</title>
+    <title data-i18n="title">Lista Wycieczek</title>
     <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
-    <script type="text/javascript" src="../static/language-switch.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyWvZF5ckE5" crossorigin="anonymous">
     <script type="text/javascript" th:src="@{/darkmode.js}" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
 </head>
@@ -33,39 +32,31 @@
         <p data-i18n="header.subtitle">Przeglądaj zaplanowane wycieczki</p>
     </header>
 
-    <ul id="trips" th:each="trip : ${wyc}">
-        <li th:text="${trip.showTrip()}"></li>
-    </ul>
-
-    <table class="tripTable">
-        <thead class="tripTableHead">
-        <tr>
-            <th data-i18n="table.id">ID</th>
-            <th data-i18n="table.start">Start</th>
-            <th data-i18n="table.end">Koniec</th>
-            <th data-i18n="table.date">Data</th>
-        </tr>
-        </thead>
-        <tbody th:each="trip : ${wyc}">
-        <tr class="tripTableTr">
-            <td th:text="${trip.getId()}"></td>
-            <td th:text="${trip.getFromLocation()}"></td>
-            <td th:text="${trip.getToLocation()}"></td>
-            <td th:text="${trip.getTripDate()}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="trip-cards">
+        <div class="trip-card" th:each="trip : ${wyc}">
+            <h3 th:text="${trip.fromLocation} + ' → ' + ${trip.toLocation}"></h3>
+            <p><strong>Data:</strong> <span th:text="${trip.tripDate}"></span></p>
+            <p><strong>Notatka:</strong> <span th:text="${trip.tripNote}"></span></p>
+            <div th:if="${#strings.isEmpty(trip.photos)}">
+                <p>Brak zdjęć</p>
+            </div>
+            <div th:unless="${#strings.isEmpty(trip.photos)}">
+                <img th:src="@{'/' + trip.photos}" alt="Zdjęcie wycieczki">
+            </div>
+            <p><strong>Widoczność:</strong>
+                <span th:text="${trip.visibility == 'public' ? 'Publiczna' : trip.visibility == 'private' ? 'Prywatna' : 'Dla znajomych'}"></span>
+            </p>
+        </div>
+    </div>
 
 <button id="theme-switch">
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
         <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q8 0 17 .5t23 1.5q-36 32-56 79t-20 99q0 90 63 153t153 63q52 0 99-18.5t79-51.5q1 12 1.5 19.5t.5 14.5q0 150-105 255T480-120Zm0-60q109 0 190-67.5T771-406q-25 11-53.67 16.5Q688.67-384 660-384q-114.69 0-195.34-80.66Q384-545.31 384-660q0-24 5-51.5t18-62.5q-98 27-162.5 109.5T180-480q0 125 87.5 212.5T480-180Zm-4-297Z"/>
     </svg>
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-        <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80ZM440 0v-160h80v160h-80Z"/>
+        <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/>
     </svg>
 </button>
-
 <button id="language-switch">
     <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-pl" viewBox="0 0 640 480">
         <g fill-rule="evenodd">
@@ -83,7 +74,7 @@
 <script>
     const translations = {
         pl: {
-            "title": "Planowanie Wycieczek",
+            "title": "Lista Wycieczek",
             "menu.trips": "WYCIECZKI",
             "menu.plan": "ZAPLANUJ WYCIECZKĘ",
             "menu.ranking": "RANKING",
@@ -97,7 +88,7 @@
             "table.date": "Data"
         },
         en: {
-            "title": "Trip Planning",
+            "title": "Trip List",
             "menu.trips": "TRIPS",
             "menu.plan": "PLAN A TRIP",
             "menu.ranking": "RANKING",
@@ -119,46 +110,19 @@
                 el.textContent = translations[lang][key];
             }
         });
-
-        document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
-            const key = el.getAttribute("data-i18n-placeholder");
-            if (translations[lang][key]) {
-                el.placeholder = translations[lang][key];
-            }
-        });
     }
 
-    // Get saved language from localStorage or default to "en"
-    const savedLang = localStorage.getItem('language') || 'en';
+    const savedLang = localStorage.getItem('language') || 'pl';
     document.documentElement.lang = savedLang;
     changeLanguage(savedLang);
 
     document.getElementById("language-switch").addEventListener("click", () => {
         const currentLang = document.documentElement.lang === "pl" ? "en" : "pl";
         document.documentElement.lang = currentLang;
-        localStorage.setItem('language', currentLang);  // Save the selected language
+        localStorage.setItem('language', currentLang);
         changeLanguage(currentLang);
     });
-
-    async function loadTrips() {
-        const tripList = document.getElementById('trips');
-        tripList.innerHTML='';
-
-        try {
-            const response = await fetch('/api/trips');
-            const trips = await response.json();
-
-            trips.forEach(trip => {
-                const tripItem = document.createElement('li');
-                tripItem.textContent = `${trip.fromLocation} -> ${trip.toLocation} | Data: ${trip.tripDate}`;
-                tripList.appendChild(tripItem);
-            });
-        } catch (error) {
-            alert('Nie udało się załadować wycieczek: ' + error.message);
-        }
-    }
-
-    // document.addEventListener('DOMContentLoaded', loadTrips);
 </script>
+</div>
 </body>
 </html>

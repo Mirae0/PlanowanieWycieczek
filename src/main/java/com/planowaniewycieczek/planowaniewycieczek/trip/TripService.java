@@ -1,10 +1,9 @@
 package com.planowaniewycieczek.planowaniewycieczek.trip;
 
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class TripService {
@@ -16,17 +15,11 @@ public class TripService {
         this.tripRepository = tripRepository;
     }
 
-
-    public Trip saveTrip(Trip trip) {
-        return tripRepository.save(trip);
+    public void saveTrip(Trip trip) {
+        tripRepository.save(trip);
     }
 
     public List<Trip> getAllTrips() {
         return tripRepository.findAll();
     }
-
-    public Trip getTripById(Long id) {
-        return tripRepository.findById(id).orElse(null);
-    }
-
 }

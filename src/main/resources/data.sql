@@ -1,4 +1,10 @@
-INSERT INTO trips(id,FROM_LOCATION,TO_LOCATION,TRIP_DATE)
-values (1,'zielona gora','poznan','2024-12-1' );
-INSERT INTO trips(id,FROM_LOCATION,TO_LOCATION,TRIP_DATE)
-values(2,'wroclaw','jelenia gora','2023-1-1');
+CREATE TABLE trips (
+                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                       from_location VARCHAR(255) NOT NULL,
+                       to_location VARCHAR(255) NOT NULL,
+                       trip_date DATE NOT NULL,
+                       trip_note TEXT,
+                       visibility VARCHAR(255),
+                       photos TEXT
+);
+
