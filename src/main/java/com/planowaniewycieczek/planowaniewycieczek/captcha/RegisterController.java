@@ -1,14 +1,16 @@
 package com.planowaniewycieczek.planowaniewycieczek.captcha;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-@RestController
-public class LoginController {
+@Controller
+public class RegisterController {
 
     @Value("${google.recaptcha.key.secret}")
     private String recaptchaSecret;
@@ -17,19 +19,27 @@ public class LoginController {
 
     private static final String GOOGLE_RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
 
-    @PostMapping("/loginP")
-    public String login(@RequestParam("name") String name,
-                        @RequestParam("password") String password,
-                        @RequestParam("g-recaptcha-response") String recaptchaResponse) {
+    @PostMapping("/register")
+    public String registerUser(@RequestParam("username") String username,
+                               @RequestParam("email") String email,
+                               @RequestParam("password") String password,
+                               @RequestParam("g-recaptcha-response") String recaptchaResponse,
+                               Model model) {
+
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("secret", recaptchaSecret);
         params.add("response", recaptchaResponse);
+
+
         GoogleResponse googleResponse = restTemplate.postForObject(GOOGLE_RECAPTCHA_VERIFY_URL, params, GoogleResponse.class);
 
+
         if (googleResponse != null && googleResponse.isSuccess()) {
-            return "Logowanie powiodło się!";
+            model.addAttribute("message", "Rejestracja powiodła się!");
+            return "registrationSuccess";  // Strona sukcesu rejestracji
         } else {
-            return "Błąd weryfikacji reCAPTCHA. Spróbuj ponownie.";
+            model.addAttribute("error", "Błąd weryfikacji reCAPTCHA. Spróbuj ponownie.");
+            return "registrationForm";
         }
     }
 }
