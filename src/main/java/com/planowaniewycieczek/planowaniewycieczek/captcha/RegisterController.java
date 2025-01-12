@@ -19,7 +19,7 @@ public class RegisterController {
 
     private static final String GOOGLE_RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
 
-    @PostMapping("/register")
+    @PostMapping("/registerCommit")
     public String registerUser(@RequestParam("username") String username,
                                @RequestParam("email") String email,
                                @RequestParam("password") String password,
