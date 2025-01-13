@@ -1,5 +1,8 @@
 package com.planowaniewycieczek.planowaniewycieczek.trip;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +34,8 @@ public class TripController {
                           @RequestParam("photoPaths") MultipartFile[] photos,
                           Model model) {
         try {
+            //Jeśli wycieczka nie ma lokacji startowej, końcowej lub daty - wyświetl błąd. Domyślna notatka jest pusta.
+            //Domyślna widoczność: publiczna
 
             if (trip.getFromLocation() == null || trip.getToLocation() == null || trip.getTripDate() == null) {
                 return "redirect:/trips/dodajwycieczke?error=true";
@@ -38,11 +43,14 @@ public class TripController {
             if (trip.getTripNote() == null) {
                 trip.setTripNote("");
             }
-
             if (trip.getVisibility() == null) {
                 trip.setVisibility("public");
             }
             tripService.saveTrip(trip);
+
+            //Jeśli nie istnieje folder ze zdjęciami zostanie utworzony, jeśli istnieje dla każdego zdjęcia zostanie utworzona ścieżka
+            //która zostanie zapisana w bazie
+
             Path imagesDirectory = Paths.get("src/main/resources/static/images");
             if (!Files.exists(imagesDirectory)) {
                 Files.createDirectories(imagesDirectory);
@@ -53,14 +61,10 @@ public class TripController {
                     String fileName = photo.getOriginalFilename();
                     Path path = Paths.get("src/main/resources/static/images/" + fileName);
                     Files.write(path, photo.getBytes());
-                    photoPaths.append("images/").append(fileName).append(", ");
+                    photoPaths.append("images/").append(fileName).append(",");
                 }
             }
-            if (photoPaths.length() > 0) {
-                trip.setPhotos(photoPaths.toString());
-            } else {
-                trip.setPhotos("");
-            }
+
             tripService.saveTrip(trip);
             return "redirect:/wycieczki";
         } catch (IOException e) {

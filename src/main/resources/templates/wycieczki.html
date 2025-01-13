@@ -25,7 +25,8 @@
         <li><a th:href="@{/login}" data-i18n="menu.login">ZALOGUJ SIĘ</a></li>
     </ul>
 </nav>
-
+<!--Powyżej: Pasek menu
+    Poniżej: Lista wycieczek-->
 <div class="trip-list-container">
     <header>
         <h1 data-i18n="header.title">Lista Wycieczek</h1>
@@ -34,20 +35,31 @@
 
     <div class="trip-cards">
         <div class="trip-card" th:each="trip : ${wyc}">
+            <!-- PODSTAWOWE INFORMACJE -->
             <h3 th:text="${trip.fromLocation} + ' → ' + ${trip.toLocation}"></h3>
             <p><strong>Data:</strong> <span th:text="${trip.tripDate}"></span></p>
             <p><strong>Notatka:</strong> <span th:text="${trip.tripNote}"></span></p>
-            <div th:if="${#strings.isEmpty(trip.photos)}">
-                <p>Brak zdjęć</p>
-            </div>
-            <div th:unless="${#strings.isEmpty(trip.photos)}">
-                <img th:src="@{'/' + trip.photos}" alt="Zdjęcie wycieczki">
-            </div>
             <p><strong>Widoczność:</strong>
                 <span th:text="${trip.visibility == 'public' ? 'Publiczna' : trip.visibility == 'private' ? 'Prywatna' : 'Dla znajomych'}"></span>
             </p>
+            <!-- OCENY -->
+            <p>Ocena: <span th:text="${trip.ratingAmount == 0 ? 0 : trip.rating/trip.ratingAmount}"></span></p>
+            <p>Liczba ocen: <span th:text="${trip.ratingAmount}"></span></p>
+
+            <!-- ZDJĘCIA -->
+            <div th:if="${#strings.isEmpty(trip.photos)}">
+                <p>Brak zdjęć</p>
+            </div>
+            <div th:each="name: ${#strings.arraySplit(trip.photos,',')}" >
+                <img src="#" th:src="${name!=''? '/' + name : }" alt="Zdjęcie wycieczki">
+            </div>
+
+
         </div>
     </div>
+
+    <!--Powyżej: Lista wycieczek
+    Poniżej: Guziki zmiany theme i języka-->
 
 <button id="theme-switch">
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
