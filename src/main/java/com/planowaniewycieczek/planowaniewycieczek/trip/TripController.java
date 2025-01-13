@@ -1,8 +1,5 @@
 package com.planowaniewycieczek.planowaniewycieczek.trip;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +43,12 @@ public class TripController {
             if (trip.getVisibility() == null) {
                 trip.setVisibility("public");
             }
+            if(trip.getRating()==null){
+                trip.setRating(0L);
+            }
+            if(trip.getRatingAmount()==null){
+                trip.setRatingAmount(0L);
+            }
             tripService.saveTrip(trip);
 
             //Jeśli nie istnieje folder ze zdjęciami zostanie utworzony, jeśli istnieje dla każdego zdjęcia zostanie utworzona ścieżka
@@ -64,7 +67,11 @@ public class TripController {
                     photoPaths.append("images/").append(fileName).append(",");
                 }
             }
-
+            if (photoPaths.length() > 0) {
+                trip.setPhotos(photoPaths.toString());
+            } else {
+                trip.setPhotos("");
+            }
             tripService.saveTrip(trip);
             return "redirect:/wycieczki";
         } catch (IOException e) {
@@ -73,6 +80,11 @@ public class TripController {
             return "dodajwycieczke";
         }
     }
+
+//    @GetMapping("/ranking")
+//    public String ranking(Model model) {
+//        List<Trip> trips =
+//    }
 
 
     @GetMapping("/wycieczki")

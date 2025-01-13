@@ -2,6 +2,7 @@ package com.planowaniewycieczek.planowaniewycieczek.trip;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /*
 Poniższy kod określa strukturę tabeli zawierającej informacje o wycieczkach
@@ -45,8 +46,8 @@ public class Trip {
         this.tripNote = tripNote;
         this.visibility = visibility;
         this.photos = photos;
-        this.rating = rating;
-        this.ratingAmount = ratingAmount;
+        this.rating = Objects.requireNonNullElse(rating, 0L);
+        this.ratingAmount = Objects.requireNonNullElse(ratingAmount, 0L);
     }
 
     // Getters and setters
