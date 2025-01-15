@@ -8,3 +8,4 @@ CREATE TABLE trips (
                        photos TEXT
 );
 
+

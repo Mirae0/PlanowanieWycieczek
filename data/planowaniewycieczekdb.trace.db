@@ -8797,3 +8797,29 @@ DELETE * FROM TRIPS WHERE ID=34 [42001-224]
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Błąd składniowy w wyrażeniu SQL "DELETE TRIPS  [*]FROM TRIPS WHERE ID=34"
 Syntax error in SQL statement "DELETE TRIPS  [*]FROM TRIPS WHERE ID=34"; SQL statement:
 DELETE TRIPS  FROM TRIPS WHERE ID=34 [42000-224]
+2025-01-15 19:05:40.673608+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Błąd składniowy w wyrażeniu SQL "SELECT * FROM trips\000d\000aORDER BY\000d\000a    CASE\000d\000a        WHEN [*]:sortBy = 'name-asc' THEN from_location\000d\000a        WHEN :sortBy = 'name-desc' THEN from_location\000d\000a        WHEN :sortBy = 'date-asc' THEN trip_date\000d\000a        WHEN :sortBy = 'date-desc' THEN trip_date\000d\000a        WHEN :sortBy = 'visibility' THEN visibility\000d\000a        ELSE from_location\000d\000a        END"; oczekiwano "INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"
+Syntax error in SQL statement "SELECT * FROM trips\000d\000aORDER BY\000d\000a    CASE\000d\000a        WHEN [*]:sortBy = 'name-asc' THEN from_location\000d\000a        WHEN :sortBy = 'name-desc' THEN from_location\000d\000a        WHEN :sortBy = 'date-asc' THEN trip_date\000d\000a        WHEN :sortBy = 'date-desc' THEN trip_date\000d\000a        WHEN :sortBy = 'visibility' THEN visibility\000d\000a        ELSE from_location\000d\000a        END"; expected "INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"; SQL statement:
+SELECT * FROM trips
+ORDER BY
+    CASE
+        WHEN :sortBy = 'name-asc' THEN from_location
+        WHEN :sortBy = 'name-desc' THEN from_location
+        WHEN :sortBy = 'date-asc' THEN trip_date
+        WHEN :sortBy = 'date-desc' THEN trip_date
+        WHEN :sortBy = 'visibility' THEN visibility
+        ELSE from_location
+        END [42001-224]
+2025-01-15 19:06:01.182722+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Błąd składniowy w wyrażeniu SQL "SELECT * FROM TRIPS\000d\000aORDER BY\000d\000a    CASE\000d\000a        WHEN [*]:sortBy = 'name-asc' THEN from_location\000d\000a        WHEN :sortBy = 'name-desc' THEN from_location\000d\000a        WHEN :sortBy = 'date-asc' THEN trip_date\000d\000a        WHEN :sortBy = 'date-desc' THEN trip_date\000d\000a        WHEN :sortBy = 'visibility' THEN visibility\000d\000a        ELSE from_location\000d\000a        END"; oczekiwano "INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"
+Syntax error in SQL statement "SELECT * FROM TRIPS\000d\000aORDER BY\000d\000a    CASE\000d\000a        WHEN [*]:sortBy = 'name-asc' THEN from_location\000d\000a        WHEN :sortBy = 'name-desc' THEN from_location\000d\000a        WHEN :sortBy = 'date-asc' THEN trip_date\000d\000a        WHEN :sortBy = 'date-desc' THEN trip_date\000d\000a        WHEN :sortBy = 'visibility' THEN visibility\000d\000a        ELSE from_location\000d\000a        END"; expected "INTERSECTS (, NOT, EXISTS, UNIQUE, INTERSECTS"; SQL statement:
+SELECT * FROM TRIPS
+ORDER BY
+    CASE
+        WHEN :sortBy = 'name-asc' THEN from_location
+        WHEN :sortBy = 'name-desc' THEN from_location
+        WHEN :sortBy = 'date-asc' THEN trip_date
+        WHEN :sortBy = 'date-desc' THEN trip_date
+        WHEN :sortBy = 'visibility' THEN visibility
+        ELSE from_location
+        END [42001-224]
