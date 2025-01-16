@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title data-i18n="title">Lista Wycieczek</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyWvZF5ckE5" crossorigin="anonymous">
     <script type="text/javascript" th:src="@{/darkmode.js}" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
@@ -12,7 +12,7 @@
 <nav class="navbar">
     <ul>
         <li class="logo">
-            <a th:href="@{/index}"><img th:src="@{/logo.jpg}" alt="logo"></a>
+            <a th:href="@{/index}"><img th:src="@{/images/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
             <input type="text" id="search-placeholder" placeholder="Search" data-i18n-placeholder="search">
@@ -75,7 +75,7 @@
                 <p>Brak zdjęć</p>
             </div>
             <div th:each="name: ${#strings.arraySplit(trip.photos,',')}" >
-                <img src="#" th:if="${name}!=' '" th:src="${'/' + name} " alt="Zdjęcie wycieczki">
+                <img class="trip-photos" src="#" th:if="${name}!=' '" th:src="${'/' + name} " alt="Zdjęcie wycieczki">
             </div>
 
 
