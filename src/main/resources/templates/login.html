@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title data-i18n="title">Planowanie Wycieczek</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href=" @{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
     <script type="text/javascript" th:src="@{/darkmode.js}" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
 </head>
 <body>
 <nav class="navbar">
     <ul>
         <li class="logo">
-            <a th:href="@{/index}"><img th:src="@{/images/logo.jpg}" alt="logo"></a>
+            <a th:href="@{/index}"> <img th:src="@{/images/logo.jpg}" alt="logo"></a>
         </li>
         <div class="search-container">
             <input type="text" placeholder="Szukaj" data-i18n-placeholder="search">
@@ -31,12 +33,12 @@
     <div class="login-header">
         <header data-i18n="header.login">Logowanie</header>
     </div>
-    <form id="loginForm" action="/login" method="post" onsubmit="return handleLoginSubmit(event)">
+    <form id="loginForm" action="/login" method="post">
         <div class="input-box">
-            <input type="text" id="email" class="input-field" placeholder="Adres email" autocomplete="off" required data-i18n-placeholder="form.email">
+            <input type="email" name="email" id="email" class="input-field" placeholder="Nazwa użytkownika" autocomplete="off" required data-i18n-placeholder="form.username">
         </div>
         <div class="input-box">
-            <input type="password" id="password" class="input-field" placeholder="Hasło" autocomplete="off" required data-i18n-placeholder="form.password">
+            <input type="password" name="password" id="password" class="input-field" placeholder="Hasło" autocomplete="off" required data-i18n-placeholder="form.password">
         </div>
         <div class="forgot">
             <section>
@@ -100,7 +102,7 @@
             "menu.friends": "ZNAJOMI",
             "menu.login": "ZALOGUJ SIĘ",
             "header.login": "Logowanie",
-            "form.email": "Adres email",
+            "form.username": "Nazwa Użytkownika",
             "form.password": "Hasło",
             "form.rememberPassword": "Zapamiętaj hasło",
             "form.forgotPassword": "Zapomniałeś hasła?",
@@ -117,7 +119,7 @@
             "menu.friends": "FRIENDS",
             "menu.login": "LOG IN",
             "header.login": "Log in",
-            "form.email": "Email address",
+            "form.username": "Username",
             "form.password": "Password",
             "form.rememberPassword": "Remember password",
             "form.forgotPassword": "Forgot your password?",
@@ -156,7 +158,7 @@
         localStorage.setItem('language', currentLang);  // Save the selected language
         changeLanguage(currentLang);
     });
-    function handleLoginSubmit(event) {
+   /* function handleLoginSubmit(event) {
         event.preventDefault();
 
         const email = document.getElementById("email").value;
@@ -181,7 +183,7 @@
                 console.error('Błąd logowania:', error);
                 alert('Wystąpił błąd. Spróbuj ponownie.');
             });
-    }
+    }*/
 </script>
 </body>
 </html>

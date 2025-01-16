@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    Optional<UserEntity> findByUsername(String username);
 
-    @Query("SELECT u FROM User u WHERE u.email = :email")
-    List<User> findAllByEmail(@Param("email") String email);
+    @Query("SELECT u FROM users u WHERE u.email = :email")
+    List<UserEntity> findAllByEmail(@Param("email") String email);
 }

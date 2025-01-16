@@ -1,7 +1,6 @@
 package com.planowaniewycieczek.planowaniewycieczek.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,19 +16,19 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
+    public List<UserEntity> getUsers() {
         return userService.getUsers();
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public UserEntity addUser(@RequestBody UserEntity userEntity) {
+        return userService.saveUser(userEntity);
     }
 
     @PostMapping("/searchUserByEmail")
-    public List<User> searchUserByEmail(@RequestParam("email") String email) {
-        List<User> users = userService.findUsersByEmail(email);
-        return users;
+    public List<UserEntity> searchUserByEmail(@RequestParam("email") String email) {
+        List<UserEntity> userEntities = userService.findUsersByEmail(email);
+        return userEntities;
     }
 
 

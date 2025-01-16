@@ -2,14 +2,13 @@ package com.planowaniewycieczek.planowaniewycieczek.home;
 
 import com.planowaniewycieczek.planowaniewycieczek.trip.Trip;
 import com.planowaniewycieczek.planowaniewycieczek.trip.TripService;
-import com.planowaniewycieczek.planowaniewycieczek.user.User;
+import com.planowaniewycieczek.planowaniewycieczek.user.UserEntity;
 import com.planowaniewycieczek.planowaniewycieczek.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -58,29 +57,19 @@ public class HomeController {
     }
     @GetMapping("/login")
     public String showLoginPage(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserEntity());
         return "login";
     }
 
-    @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute User user, Model model) {
-        User existingUser = userService.findByUsername(user.getUsername());
-        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            model.addAttribute("Uname", user.getUsername());
-            return "hello";
-        }
-        model.addAttribute("error", "Nieprawidłowa nazwa użytkownika lub hasło.");
-        return "login";
-    }
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserEntity());
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, Model model) {
-        userService.saveUser(user);
+    public String registerUser(@ModelAttribute UserEntity userEntity, Model model) {
+        userService.saveUser(userEntity);
         return "redirect:/login";
     }
 }
