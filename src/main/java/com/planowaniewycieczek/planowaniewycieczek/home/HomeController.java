@@ -41,8 +41,8 @@ public class HomeController {
     @GetMapping("/wycieczki")
     public String wycieczki(Model model) {
 //        model.addAttribute("testowka","TESTOWY THYMELEAF");
-        List<Trip> trips = tripService.getAllTrips();
-        model.addAttribute("trips",trips);
+        List<Trip> listaTripow = tripService.getAllTrips();
+        model.addAttribute("wyc",listaTripow);
         return "wycieczki";
     }
 
