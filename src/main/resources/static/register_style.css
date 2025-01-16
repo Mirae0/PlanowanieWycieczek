@@ -1,0 +1,50 @@
+body{
+    background-color: #181b1d;
+}
+
+#reg_h2{
+    padding: 10px;
+    margin: auto;
+    width: 20%;
+    text-align: center;
+    border-radius: 8px;
+}
+
+h2{
+    background-color: darkolivegreen;
+    color: white;
+}
+
+.register{
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 8px;
+    top: 30%;
+    left: 50%;
+    position: absolute;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: darkolivegreen;
+    color: white;
+    transform: translate(-50%, -50%);
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: white;
+    font-weight: bold;
+    color: darkolivegreen;
+}
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 14px;
+    display: none;
+}
