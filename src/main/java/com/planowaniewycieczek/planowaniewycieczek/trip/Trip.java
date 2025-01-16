@@ -2,6 +2,11 @@ package com.planowaniewycieczek.planowaniewycieczek.trip;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
+
+/*
+Poniższy kod określa strukturę tabeli zawierającej informacje o wycieczkach
+ */
 
 @Entity
 @Table(name = "trips")
@@ -23,19 +28,26 @@ public class Trip {
     private String tripNote;
     private String visibility;
 
-    @Column(name = "photos")
+    @Column
     private String photos;
 
+    @Column
+    private Long rating;
+
+    @Column
+    private Long ratingAmount;
 
     public Trip() {}
 
-    public Trip(String fromLocation, String toLocation, LocalDate tripDate, String tripNote, String visibility, String photos) {
+    public Trip(String fromLocation, String toLocation, LocalDate tripDate, String tripNote, String visibility, String photos, Long rating, Long ratingAmount) {
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.tripDate = tripDate;
         this.tripNote = tripNote;
         this.visibility = visibility;
         this.photos = photos;
+        this.rating = Objects.requireNonNullElse(rating, 0L);
+        this.ratingAmount = Objects.requireNonNullElse(ratingAmount, 0L);
     }
 
     // Getters and setters
@@ -96,9 +108,26 @@ public class Trip {
         this.photos = photos;
     }
 
+    public Long getRating() {
+        return rating;
+    }
+
+    public void setRating(Long rating) {
+        this.rating = rating;
+    }
+
+
+    public Long getRatingAmount() {
+        return ratingAmount;
+    }
+
+    public void setRatingAmount(Long ratingAmount) {
+        this.ratingAmount = ratingAmount;
+    }
+
     @Override
     public String toString() {
         return "Trip [id=" + id + ", fromLocation=" + fromLocation + ", toLocation=" + toLocation + ", tripDate=" + tripDate
-                + ", tripNote=" + tripNote + ", visibility=" + visibility + ", photos=" + photos + "]";
+                + ", tripNote=" + tripNote + ", visibility=" + visibility + ", photos=" + photos + "] ";
     }
 }
