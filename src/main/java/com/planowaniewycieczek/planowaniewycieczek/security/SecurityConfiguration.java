@@ -29,7 +29,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->{
                     auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-                    auth.requestMatchers("/images/**","css/**").permitAll();
+                    auth.requestMatchers("/images/**","css/**","js/**").permitAll();
            auth.requestMatchers("/wycieczki","/ranking","/register/**").permitAll();
            auth.requestMatchers("/user/**").hasRole("USER");
            auth.requestMatchers("/login").permitAll();
