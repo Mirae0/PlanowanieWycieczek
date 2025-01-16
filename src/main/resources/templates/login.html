@@ -5,7 +5,7 @@
     <title data-i18n="title">Planowanie Wycieczek</title>
     <link rel="stylesheet" th:href=" @{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
-    <script type="text/javascript" th:src="@{/js/darkmode.js}" defer></script>
+    <script type="text/javascript" th:src="@{/darkmode.js}" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
@@ -33,9 +33,9 @@
     <div class="login-header">
         <header data-i18n="header.login">Logowanie</header>
     </div>
-    <form id="loginForm" action="/login" method="post">
+    <form id="loginForm" action="/login" method="post" always-use-default-target="true">
         <div class="input-box">
-            <input type="email" name="email" id="email" class="input-field" placeholder="Nazwa użytkownika" autocomplete="off" required data-i18n-placeholder="form.username">
+            <input type="text" name="username" id="username" class="input-field" placeholder="Nazwa użytkownika" autocomplete="off" required data-i18n-placeholder="form.username">
         </div>
         <div class="input-box">
             <input type="password" name="password" id="password" class="input-field" placeholder="Hasło" autocomplete="off" required data-i18n-placeholder="form.password">

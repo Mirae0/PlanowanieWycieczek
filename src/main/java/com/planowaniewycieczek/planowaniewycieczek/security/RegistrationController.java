@@ -21,16 +21,15 @@ public class RegistrationController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @PostMapping(path = "/register/user", consumes = "application/x-www-form-urlencoded")
+    @PostMapping(path="/register/user", consumes = "application/x-www-form-urlencoded")
     public void createUser(UserEntity user, HttpServletResponse response) throws IOException {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        response.sendRedirect("/login");
+        response.sendRedirect("/register/success");
     }
 
-    //@GetMapping("/register/success")
-   // public String success() {
-   //     return "redirect:/login";
-
-   // }
+    @GetMapping("/register/success")
+    public String success() {
+        return "/login";
+    }
 }

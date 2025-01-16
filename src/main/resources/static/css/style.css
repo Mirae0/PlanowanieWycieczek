@@ -428,10 +428,11 @@ section a {
 .trip-photos{
     margin: auto;
     border-radius: 10px;
-    max-width: 100%;
-    height: auto;
-    width: 50%;
+    max-width: 50%;
+    max-height: 100%;
     display: block;
+
+
 }
 
 

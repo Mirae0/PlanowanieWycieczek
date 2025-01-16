@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ContentController {
 
     @GetMapping("/home")
-    public String handleHome() {
-        return "wycieczki";
+    public String handleWelcome() {
+        return "index";
     }
 
     @GetMapping("/user/home")

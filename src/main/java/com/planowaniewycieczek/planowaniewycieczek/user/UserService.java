@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -20,8 +21,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public UserEntity saveUser(UserEntity userEntity) {
-        return userRepository.save(userEntity);
+    public UserEntity saveUser(UserEntity user) {
+        return userRepository.save(user);
     }
 
     public UserEntity findByUsername(String username) {return userRepository.findByUsername(username).orElse(null);}

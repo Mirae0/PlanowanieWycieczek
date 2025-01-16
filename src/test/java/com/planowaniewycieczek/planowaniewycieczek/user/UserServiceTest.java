@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class UserEntityServiceTest {
+class UserServiceTest {
 
     @Mock
     private UserRepository userRepository; // Mock UserRepository
@@ -29,47 +29,47 @@ class UserEntityServiceTest {
     @Test
     void shouldReturnAllUsers() {
         // Arrange
-        UserEntity userEntity1 = new UserEntity("JohnDoe", "password1", "john@example.com");
-        UserEntity userEntity2 = new UserEntity("JaneDoe", "password2", "jane@example.com");
-        when(userRepository.findAll()).thenReturn(Arrays.asList(userEntity1, userEntity2));
+        User user1 = new User("JohnDoe", "password1", "john@example.com");
+        User user2 = new User("JaneDoe", "password2", "jane@example.com");
+        when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
         // Act
-        List<UserEntity> userEntities = userService.getUsers();
+        List<User> users = userService.getUsers();
 
         // Assert
-        assertEquals(2, userEntities.size());
-        assertEquals("JohnDoe", userEntities.get(0).getUsername());
+        assertEquals(2, users.size());
+        assertEquals("JohnDoe", users.get(0).getUsername());
         verify(userRepository, times(1)).findAll(); // Verify that the repository was called
     }
 
     @Test
     void shouldSaveUser() {
         // Arrange
-        UserEntity userEntity = new UserEntity("JohnDoe", "password1", "john@example.com");
-        when(userRepository.save(userEntity)).thenReturn(userEntity);
+        User user = new User("JohnDoe", "password1", "john@example.com");
+        when(userRepository.save(user)).thenReturn(user);
 
         // Act
-        UserEntity savedUserEntity = userService.saveUser(userEntity);
+        User savedUser = userService.saveUser(user);
 
         // Assert
-        assertNotNull(savedUserEntity);
-        assertEquals("JohnDoe", savedUserEntity.getUsername());
-        verify(userRepository, times(1)).save(userEntity);
+        assertNotNull(savedUser);
+        assertEquals("JohnDoe", savedUser.getUsername());
+        verify(userRepository, times(1)).save(user);
     }
 
     @Test
     void shouldFindUserByUsername() {
         // Arrange
         String username = "JohnDoe";
-        UserEntity userEntity = new UserEntity(username, "password1", "john@example.com");
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(userEntity));
+        User user = new User(username, "password1", "john@example.com");
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
 
         // Act
-        UserEntity foundUserEntity = userService.findByUsername(username);
+        User foundUser = userService.findByUsername(username);
 
         // Assert
-        assertNotNull(foundUserEntity);
-        assertEquals(username, foundUserEntity.getUsername());
+        assertNotNull(foundUser);
+        assertEquals(username, foundUser.getUsername());
         verify(userRepository, times(1)).findByUsername(username);
     }
 
@@ -80,10 +80,10 @@ class UserEntityServiceTest {
         when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
 
         // Act
-        UserEntity foundUserEntity = userService.findByUsername(username);
+        User foundUser = userService.findByUsername(username);
 
         // Assert
-        assertNull(foundUserEntity);
+        assertNull(foundUser);
         verify(userRepository, times(1)).findByUsername(username);
     }
 
@@ -91,15 +91,15 @@ class UserEntityServiceTest {
     void shouldFindUsersByEmail() {
         // Arrange
         String email = "john@example.com";
-        UserEntity userEntity = new UserEntity("JohnDoe", "password1", email);
-        when(userRepository.findAllByEmail(email)).thenReturn(Arrays.asList(userEntity));
+        User user = new User("JohnDoe", "password1", email);
+        when(userRepository.findAllByEmail(email)).thenReturn(Arrays.asList(user));
 
         // Act
-        List<UserEntity> userEntities = userService.findUsersByEmail(email);
+        List<User> users = userService.findUsersByEmail(email);
 
         // Assert
-        assertEquals(1, userEntities.size());
-        assertEquals(email, userEntities.get(0).getEmail());
+        assertEquals(1, users.size());
+        assertEquals(email, users.get(0).getEmail());
         verify(userRepository, times(1)).findAllByEmail(email);
     }
 }

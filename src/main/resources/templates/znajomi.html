@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
     <script type="text/javascript" src="../static/language.js" defer></script>
-    <script type="text/javascript" src="../static/js/darkmode.js" defer></script>
+    <script type="text/javascript" src="../static/darkmode.js" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
     <style>
 
@@ -44,10 +44,10 @@
             <h2>Wyszukiwanie użytkowników po nazwie użytkownika</h2>
             <div class="search-container-custom">
                 <input type="text" id="usernameInput" placeholder="Wpisz nazwę użytkownika" required>
-                <button type="button" id="search-userEntity">Szukaj</button>
+                <button type="button" id="search-user">Szukaj</button>
             </div>
 
-            <ul id="userEntities-list">
+            <ul id="users-list">
 
             </ul>
         </div>
@@ -75,9 +75,9 @@
     </button>
 
     <script>  <!-- --------------------SCRIPT START-------------------------- -->
-    document.getElementById('search-userEntity').addEventListener('click', () => {
+    document.getElementById('search-user').addEventListener('click', () => {
         const username = document.getElementById('usernameInput').value;
-        fetch('/api/userEntity/searchUserByUsername', {
+        fetch('/api/user/searchUserByUsername', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -90,18 +90,18 @@
                 }
                 return response.json();
             })
-            .then(userEntities => {
-                const userList = document.getElementById('userEntities-list');
+            .then(users => {
+                const userList = document.getElementById('users-list');
                 userList.innerHTML = '';
-                if (userEntities.length === 0) {
+                if (users.length === 0) {
                     userList.innerHTML = '<li>Użytkownik o podanej nazwie nie został znaleziony.</li>';
                 } else {
-                    userEntities.forEach(userEntity => {
+                    users.forEach(user => {
                         const li = document.createElement('li');
                         li.innerHTML = `
                     <div>
 
-                        <p><strong>Znaleziono użytkownika:</strong> ${userEntity.username}</p>
+                        <p><strong>Znaleziono użytkownika:</strong> ${user.username}</p>
 
                         <button class="add-friend-btn">Dodaj do znajomych</button>
                     </div>

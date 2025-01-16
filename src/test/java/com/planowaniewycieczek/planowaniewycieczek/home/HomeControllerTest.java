@@ -1,7 +1,7 @@
 package com.planowaniewycieczek.planowaniewycieczek.home;
 
 import com.planowaniewycieczek.planowaniewycieczek.trip.TripService;
-import com.planowaniewycieczek.planowaniewycieczek.user.UserEntity;
+import com.planowaniewycieczek.planowaniewycieczek.user.User;
 import com.planowaniewycieczek.planowaniewycieczek.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,8 +67,8 @@ public class HomeControllerTest {
     @Test
     public void testLoginSubmitSuccess() throws Exception {
         // Przygotowanie danych testowych
-        UserEntity testUserEntity = new UserEntity("john_doe", "password123", "john.doe@example.com");
-        when(userService.findByUsername("john_doe")).thenReturn(testUserEntity);
+        User testUser = new User("john_doe", "password123", "john.doe@example.com");
+        when(userService.findByUsername("john_doe")).thenReturn(testUser);
 
         mockMvc.perform(post("/login")
                         .param("username", "john_doe")
@@ -83,8 +83,8 @@ public class HomeControllerTest {
     @Test
     public void testLoginSubmitFailure() throws Exception {
         // Przygotowanie danych testowych
-        UserEntity testUserEntity = new UserEntity("john_doe", "password123", "john.doe@example.com");
-        when(userService.findByUsername("john_doe")).thenReturn(testUserEntity);
+        User testUser = new User("john_doe", "password123", "john.doe@example.com");
+        when(userService.findByUsername("john_doe")).thenReturn(testUser);
 
         mockMvc.perform(post("/login")
                         .param("username", "john_doe")
@@ -106,8 +106,8 @@ public class HomeControllerTest {
 
     @Test
     public void testRegisterUser() throws Exception {
-        UserEntity testUserEntity = new UserEntity("john_doe", "password123", "john.doe@example.com");
-        when(userService.saveUser(testUserEntity)).thenReturn(testUserEntity);
+        User testUser = new User("john_doe", "password123", "john.doe@example.com");
+        when(userService.saveUser(testUser)).thenReturn(testUser);
 
         mockMvc.perform(post("/register")
                         .param("username", "john_doe")
@@ -116,6 +116,6 @@ public class HomeControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login"));
 
-        verify(userService, times(1)).saveUser(testUserEntity);
+        verify(userService, times(1)).saveUser(testUser);
     }
 }
