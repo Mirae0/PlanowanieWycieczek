@@ -12,4 +12,25 @@ public class UserService {
                 new User("Jan")
         );
     }
+<<<<<<< Updated upstream
 }
+=======
+
+    public List<UserEntity> getUsers() {
+        return userRepository.findAll();
+    }
+
+    public UserEntity saveUser(UserEntity user) {
+        return userRepository.save(user);
+    }
+
+    public UserEntity findByUsername(String username) {return userRepository.findByUsername(username).orElse(null);}
+
+
+    public List<UserEntity> findUsersByEmail(String email) {
+        return userRepository.findAllByEmail(email);
+    }
+
+
+}
+>>>>>>> Stashed changes

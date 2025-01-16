@@ -19,9 +19,23 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
+    public List<UserEntity> getUsers() {
         return userService.getUsers();
     }
 
+<<<<<<< Updated upstream
+=======
+    @PostMapping
+    public UserEntity addUser(@RequestBody UserEntity user) {
+        return userService.saveUser(user);
+    }
+
+    @PostMapping("/searchUserByEmail")
+    public List<UserEntity> searchUserByEmail(@RequestParam("email") String email) {
+        List<UserEntity> users = userService.findUsersByEmail(email);
+        return users;
+    }
+
+>>>>>>> Stashed changes
 
 }

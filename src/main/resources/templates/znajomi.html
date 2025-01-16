@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Planowanie Wycieczek - znajomi</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
+    <script type="text/javascript" src="../static/language.js" defer></script>
+    <script type="text/javascript" src="../static/darkmode.js" defer></script>
+    <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li class="logo">
+                <a href="index.html"><img th:src="@{/images/logo.jpg}" alt="logo"></a>
+            </li>
+            <div class="search-container">
+                <input type="text" placeholder="Szukaj">
+                <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #1a2e35;"></i></i></button>
+            </div>
+
+            <li><a th:href="@{/wycieczki}">WYCIECZKI</a></li>
+            <li><a th:href="@{/dodajwycieczke}">ZAPLANUJ WYCIECZKĘ</a></li>
+            <li><a th:href="@{/ranking}">RANKING</a></li>
+            <li><a th:href="@{/znajomi}">ZNAJOMI</a></li>
+            <li><a th:href="@{/login}">ZALOGUJ SIĘ</a></li>
+        </ul>
+    </nav>
+    <div class="container-custom">
+        <div class="LPanel-custom">
+            <h2>Twoi znajomi</h2>
+            <ul id="friends-list">
+
+                <!-- Użytkownicy po dodaniu do znajomych -->
+
+            </ul>
+        </div>
+        <div class="RPanel-custom">
+            <h2>Wyszukiwanie użytkowników po nazwie użytkownika</h2>
+            <div class="search-container-custom">
+                <input type="text" id="usernameInput" placeholder="Wpisz nazwę użytkownika" required>
+                <button type="button" id="search-user">Szukaj</button>
+            </div>
+
+            <ul id="users-list">
+
+            </ul>
+        </div>
+
+
+
+    </div>
+
+    <button id="theme-switch">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q8 0 17 .5t23 1.5q-36 32-56 79t-20 99q0 90 63 153t153 63q52 0 99-18.5t79-51.5q1 12 1.5 19.5t.5 14.5q0 150-105 255T480-120Zm0-60q109 0 190-67.5T771-406q-25 11-53.67 16.5Q688.67-384 660-384q-114.69 0-195.34-80.66Q384-545.31 384-660q0-24 5-51.5t18-62.5q-98 27-162.5 109.5T180-480q0 125 87.5 212.5T480-180Zm-4-297Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+    </button>
+    <button id="language-switch">
+        <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-pl" viewBox="0 0 640 480">
+          <g fill-rule="evenodd">
+            <path fill="#fff" d="M640 480H0V0h640z"/>
+            <path fill="#dc143c" d="M640 480H0V240h640z"/></g>
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-gb-eng" viewBox="0 0 640 480">
+            <path fill="#fff" d="M0 0h640v480H0z"/>
+            <path fill="#ce1124" d="M281.6 0h76.8v480h-76.8z"/>
+            <path fill="#ce1124" d="M0 201.6h640v76.8H0z"/>
+        </svg>
+    </button>
+
+    <script>  <!-- --------------------SCRIPT START-------------------------- -->
+    document.getElementById('search-user').addEventListener('click', () => {
+        const username = document.getElementById('usernameInput').value;
+        fetch('/api/user/searchUserByUsername', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `username=${encodeURIComponent(username)}`,
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Błąd podczas wyszukiwania użytkowników');
+                }
+                return response.json();
+            })
+            .then(users => {
+                const userList = document.getElementById('users-list');
+                userList.innerHTML = '';
+                if (users.length === 0) {
+                    userList.innerHTML = '<li>Użytkownik o podanej nazwie nie został znaleziony.</li>';
+                } else {
+                    users.forEach(user => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                    <div>
+
+                        <p><strong>Znaleziono użytkownika:</strong> ${user.username}</p>
+
+                        <button class="add-friend-btn">Dodaj do znajomych</button>
+                    </div>
+                `;
+                        userList.appendChild(li);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Wystąpił błąd podczas wyszukiwania użytkowników.');
+            });
+    });
+
+    </script>
+
+</body>
+</html>
