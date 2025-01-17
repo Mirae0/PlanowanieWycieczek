@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Planowanie Wycieczek - znajomi</title>
@@ -7,16 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
     <script type="text/javascript" th:src="@{/js/darkmode.js}" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
-    <style>
-
-    </style>
-
 </head>
 <body>
     <nav class="navbar">
         <ul>
             <li class="logo">
-                <a href="index.html"><img th:src="@{/images/logo.jpg}" alt="logo"></a>
+                <a th:href="@{/index}"><img th:src="@{/images/logo.jpg}" alt="logo"></a>
             </li>
             <div class="search-container">
                 <input type="text" placeholder="Szukaj">
@@ -32,7 +28,7 @@
     </nav>
     <div class="container-custom">
         <div class="LPanel-custom">
-            <h2>Twoi znajomi</h2>
+            <h2 data-i18n="yourFriends">Twoi znajomi</h2>
             <ul id="friends-list">
 
                 <!-- Użytkownicy po dodaniu do znajomych -->
@@ -40,10 +36,10 @@
             </ul>
         </div>
         <div class="RPanel-custom">
-            <h2>Wyszukiwanie użytkowników po nazwie użytkownika</h2>
+            <h2 data-i18n="friendsSearch">Wyszukiwanie użytkowników po nazwie użytkownika</h2>
             <div class="search-container-custom">
-                <input type="text" id="usernameInput" placeholder="Wpisz nazwę użytkownika" required>
-                <button type="button" id="search-user">Szukaj</button>
+                <input type="text" id="usernameInput" placeholder="Wpisz nazwę użytkownika" required data-i18n="searchPlaceholder">
+                <button type="button" id="search-user" data-i18n="search">Szukaj</button>
             </div>
 
             <ul id="users-list">
@@ -61,11 +57,11 @@
     </button>
     <button id="language-switch">
         <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-pl" viewBox="0 0 640 480">
-          <g fill-rule="evenodd">
-            <path fill="#fff" d="M640 480H0V0h640z"/>
-            <path fill="#dc143c" d="M640 480H0V240h640z"/></g>
+            <g fill-rule="evenodd">
+                <path fill="#fff" d="M640 480H0V0h640z"/>
+                <path fill="#dc143c" d="M640 480H0V240h640z"/>
+            </g>
         </svg>
-
         <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-gb-eng" viewBox="0 0 640 480">
             <path fill="#fff" d="M0 0h640v480H0z"/>
             <path fill="#ce1124" d="M281.6 0h76.8v480h-76.8z"/>
@@ -74,6 +70,59 @@
     </button>
 
     <script>  <!-- --------------------SCRIPT START-------------------------- -->
+    const translations = {
+        en: {
+            "friends-title": "Friends",
+            "search-title": "Search a User",
+            "emailInput": "Enter email address",
+            "search-user": "Search",
+            "menu-trips": "TRIPS",
+            "menu-plan": "PLAN A TRIP",
+            "menu-ranking": "RANKING",
+            "menu-friends": "FRIENDS",
+            "menu-login": "LOG IN",
+            "yourFriends": "Your Friends",
+            "friendsSearch": "Search for friends by their username",
+            "searchPlaceholder": "Enter a username",
+            "search": "Search",
+        },
+        pl: {
+            "friends-title": "Znajomi",
+            "search-title": "Wyszukiwanie użytkowników",
+            "emailInput": "Wpisz adres email",
+            "search-user": "Szukaj",
+            "menu-trips": "WYCIECZKI",
+            "menu-plan": "ZAPLANUJ WYCIECZKĘ",
+            "menu-ranking": "RANKING",
+            "menu-friends": "ZNAJOMI",
+            "menu-login": "ZALOGUJ SIĘ",
+            "yourFriends": "Twoi znajomi",
+            "friendsSearch": "Wyszukaj znajomych po nazwie użytkownika",
+            "searchPlaceholder": "Wpisz nazwę użytkownika",
+            "search": "Szukaj",
+
+        }
+    };
+
+    function changeLanguage(lang) {
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            if (translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
+        });
+    }
+    const savedLang = localStorage.getItem('language') || 'pl';
+    document.documentElement.lang = savedLang;
+    changeLanguage(savedLang);
+
+    document.getElementById("language-switch").addEventListener("click", () => {
+        const currentLang = document.documentElement.lang === "pl" ? "en" : "pl";
+        document.documentElement.lang = currentLang;
+        localStorage.setItem('language', currentLang);
+        changeLanguage(currentLang);
+    });
+
     document.getElementById('search-user').addEventListener('click', () => {
         const username = document.getElementById('usernameInput').value;
         fetch('/api/user/searchUserByUsername', {

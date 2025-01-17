@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Planowanie Wycieczek</title>
@@ -22,7 +23,7 @@
         <li><a id="menu-plan" th:href="@{/dodajwycieczke}">ZAPLANUJ WYCIECZKĘ</a></li>
         <li><a id="menu-ranking" th:href="@{/ranking}">RANKING</a></li>
         <li><a id="menu-friends" th:href="@{/znajomi}">ZNAJOMI</a></li>
-        <li><a id="menu-login" th:href="@{/login}">ZALOGUJ SIĘ</a></li>
+        <li><sec:authorize access="isAnonymous"><a id="menu-login" th:href="@{/login}">ZALOGUJ SIĘ</a></sec:authorize></li>
     </ul>
 </nav>
 
@@ -229,3 +230,5 @@
 
 
 </script>
+</body>
+</html>
