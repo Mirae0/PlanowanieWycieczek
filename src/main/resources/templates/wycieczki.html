@@ -75,7 +75,7 @@
                 <p>Brak zdjęć</p>
             </div>
             <div th:each="name: ${#strings.arraySplit(trip.photos,',')}" >
-                <img class="trip-photos" src="#" th:if="${name}!=''" th:src="${'/' + name} " alt="Zdjęcie wycieczki">
+                <img class="trip-photos" src="#" th:if="${name}!='' and ${name}!=' '" th:src="${'/' + name} " alt="Zdjęcie wycieczki">
             </div>
 
 

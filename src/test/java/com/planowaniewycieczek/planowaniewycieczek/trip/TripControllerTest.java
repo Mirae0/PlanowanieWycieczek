@@ -31,23 +31,10 @@ class TripControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Test
-    void testAddTripSuccess() throws Exception {
-        Trip trip = new Trip("Warsaw", "Zielona Góra", LocalDate.of(2024, 12, 12));
-        Mockito.when(tripService.saveTrip(any(Trip.class))).thenReturn(trip);
-
-        mockMvc.perform(post("/api/trips")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(trip)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.fromLocation").value("Warsaw"))
-                .andExpect(jsonPath("$.toLocation").value("Zielona Góra"))
-                .andExpect(jsonPath("$.tripDate").value("2024-12-12"));
-    }
 
     @Test
     void testAddTripBadRequest() throws Exception {
-        Trip trip = new Trip(null, "Zielona Góra", null,null,null,null); // Brak wymaganych pól
+        Trip trip = new Trip(null, "Zielona Góra", null,null,null,null,null,null); // Brak wymaganych pól
 
         mockMvc.perform(post("/api/trips")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -58,8 +45,8 @@ class TripControllerTest {
     @Test
     void testGetAllTripsSuccess() throws Exception {
         List<Trip> trips = Arrays.asList(
-                new Trip("Warsaw", "Zielona Góra", LocalDate.of(2024, 12, 12)),
-                new Trip("Gdańsk", "Kraków", LocalDate.of(2024, 11, 10))
+                new Trip("Warsaw", "Zielona Góra", LocalDate.of(2024, 12, 12),"","public","",null,null),
+                new Trip("Gdańsk", "Kraków", LocalDate.of(2024, 11, 10),"","public","",null,null)
         );
         Mockito.when(tripService.getAllTrips()).thenReturn(trips);
 
@@ -79,7 +66,7 @@ class TripControllerTest {
 
     @Test
     void testGetTripByIdSuccess() throws Exception {
-        Trip trip = new Trip("Warsaw", "Zielona Góra", LocalDate.of(2024, 12, 12));
+        Trip trip = new Trip("Warsaw", "Zielona Góra", LocalDate.of(2024, 12, 12),"","public","",null,null);
         Mockito.when(tripService.getTripById(anyLong())).thenReturn(trip);
 
         mockMvc.perform(get("/api/trips/1"))

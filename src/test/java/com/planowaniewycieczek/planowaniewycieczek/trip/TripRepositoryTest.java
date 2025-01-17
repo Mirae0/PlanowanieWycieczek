@@ -24,8 +24,8 @@ public class TripRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        trip1 = new Trip("Warszawa", "Zakopane", LocalDate.of(2025, 2, 1));
-        trip2 = new Trip("Kraków", "Gdańsk", LocalDate.of(2025, 2, 2));
+        trip1 = new Trip("Warszawa", "Zakopane", LocalDate.of(2025, 2, 1),"","public","",null,null);
+        trip2 = new Trip("Kraków", "Gdańsk", LocalDate.of(2025, 2, 2),"","public","",null,null);
     }
 
     @Test

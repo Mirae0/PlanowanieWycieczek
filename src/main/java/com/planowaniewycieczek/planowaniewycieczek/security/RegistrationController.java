@@ -25,11 +25,9 @@ public class RegistrationController {
     public void createUser(UserEntity user, HttpServletResponse response) throws IOException {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        response.sendRedirect("/register/success");
+        response.sendRedirect("/index");
     }
 
-    @GetMapping("/register/success")
-    public String success() {
-        return "/login";
-    }
+
+
 }

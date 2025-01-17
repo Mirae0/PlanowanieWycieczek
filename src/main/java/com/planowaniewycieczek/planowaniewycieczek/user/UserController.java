@@ -27,9 +27,8 @@ public class UserController {
     }
 
     @PostMapping("/searchUserByEmail")
-    public List<UserEntity> searchUserByEmail(@RequestParam("email") String email) {
-        List<UserEntity> users = userService.findUsersByEmail(email);
-        return users;
+    public List<UserEntity> searchUserByEmail(@RequestParam("username") String username) {
+        return userService.findUsersByUsername(username);
     }
 
 

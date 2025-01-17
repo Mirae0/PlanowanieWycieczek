@@ -32,5 +32,9 @@ public class UserService {
         return userRepository.findAllByEmail(email);
     }
 
+    public List<UserEntity> findUsersByUsername(String username) {
+        return userRepository.findAllByUsernameContaining(username);
+    }
+
 
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.management.Query;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class TripService {
@@ -22,6 +23,11 @@ public class TripService {
 
     public List<Trip> getAllTrips() {
         return tripRepository.findAll();
+    }
+
+    public Trip getTripById(Long id) {
+        return tripRepository.findById(id).get();
+
     }
 
 //    public List<Trip> getTopTen() {
