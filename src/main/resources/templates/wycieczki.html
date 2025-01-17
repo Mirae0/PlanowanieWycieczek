@@ -5,7 +5,7 @@
     <title data-i18n="title">Lista Wycieczek</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyWvZF5ckE5" crossorigin="anonymous">
-    <script type="text/javascript" th:src="@{/js/darkmode.js}" defer></script>
+    <script type="text/javascript" th:src="@{/darkmode.js}" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -32,9 +32,33 @@
         <h1 data-i18n="header.title">Lista Wycieczek</h1>
         <p data-i18n="header.subtitle">Przeglądaj zaplanowane wycieczki</p>
     </header>
+    <form method="get" th:action="@{/wycieczki}">
+        <!-- Filtracja według widoczności -->
+        <label for="visibility">Widoczność:</label>
+        <select name="visibility" id="visibility">
+            <option value="all" th:selected="${visibility == 'all'}">Wszystkie</option>
+            <option value="public" th:selected="${visibility == 'public'}">Publiczne</option>
+            <option value="private" th:selected="${visibility == 'private'}">Prywatne</option>
+            <option value="friends" th:selected="${visibility == 'friends'}">Dla znajomych</option>
+        </select>
+
+        <!-- Sortowanie -->
+        <label for="sortBy">Sortowanie:</label>
+        <select name="sortBy" id="sortBy">
+            <option value="name-asc" th:selected="${sortBy == 'name-asc'}">Nazwy (A-Z)</option>
+            <option value="name-desc" th:selected="${sortBy == 'name-desc'}">Nazwy (Z-A)</option>
+            <option value="date-asc" th:selected="${sortBy == 'date-asc'}">Data (rosnąco)</option>
+            <option value="date-desc" th:selected="${sortBy == 'date-desc'}">Data (malejąco)</option>
+        </select>
+
+        <button type="submit">Filtruj</button>
+    </form>
+
+
+
 
     <div class="trip-cards">
-        <div class="trip-card" th:each="trip : ${wyc}">
+        <div class="trip-card" th:each="trip : ${trips}">
             <!-- PODSTAWOWE INFORMACJE -->
             <h3 th:text="${trip.fromLocation} + ' → ' + ${trip.toLocation}"></h3>
             <p><strong>Data:</strong> <span th:text="${trip.tripDate}"></span></p>
@@ -43,7 +67,7 @@
                 <span th:text="${trip.visibility == 'public' ? 'Publiczna' : trip.visibility == 'private' ? 'Prywatna' : 'Dla znajomych'}"></span>
             </p>
             <!-- OCENY -->
-            <p>Ocena: <span th:text="${trip.ratingAmount == 0 ? 0 : trip.getRatingFinal}"></span></p>
+            <p>Ocena: <span th:text="${trip.ratingAmount == 0 ? 0 : trip.rating/trip.ratingAmount}"></span></p>
             <p>Liczba ocen: <span th:text="${trip.ratingAmount}"></span></p>
 
             <!-- ZDJĘCIA -->

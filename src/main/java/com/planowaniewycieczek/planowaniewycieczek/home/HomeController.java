@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -41,8 +40,8 @@ public class HomeController {
     @GetMapping("/wycieczki")
     public String wycieczki(Model model) {
 //        model.addAttribute("testowka","TESTOWY THYMELEAF");
-        List<Trip> listaTripow = tripService.getAllTrips();
-        model.addAttribute("wyc",listaTripow);
+        List<Trip> trips = tripService.getAllTrips();
+        model.addAttribute("trips",trips);
         return "wycieczki";
     }
 
@@ -62,26 +61,15 @@ public class HomeController {
         return "login";
     }
 
-//    @PostMapping("/login")
-//    public String loginSubmit(@ModelAttribute UserEntity user, Model model) {
-//        UserEntity existingUser = userService.findByUsername(user.getUsername());
-//        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-//            model.addAttribute("Uname", user.getUsername());
-//            return "hello";
-//        }
-//        model.addAttribute("error", "Nieprawidłowa nazwa użytkownika lub hasło.");
-//        return "login";
-//    }
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
         model.addAttribute("user", new UserEntity());
         return "register";
     }
 
-
-//    @PostMapping("/register")
-//    public String registerUser(@ModelAttribute UserEntity user, Model model) {
-//        userService.saveUser(user);
-//        return "redirect:/login";
-//    }
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute UserEntity userEntity, Model model) {
+        userService.saveUser(userEntity);
+        return "redirect:/login";
+    }
 }

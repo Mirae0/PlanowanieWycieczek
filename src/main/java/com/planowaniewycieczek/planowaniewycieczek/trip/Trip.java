@@ -37,9 +37,6 @@ public class Trip {
     @Column
     private Long ratingAmount;
 
-    @Column
-    private Long ratingFinal;
-
     public Trip() {}
 
     public Trip(String fromLocation, String toLocation, LocalDate tripDate, String tripNote, String visibility, String photos, Long rating, Long ratingAmount) {
@@ -51,11 +48,6 @@ public class Trip {
         this.photos = photos;
         this.rating = Objects.requireNonNullElse(rating, 0L);
         this.ratingAmount = Objects.requireNonNullElse(ratingAmount, 0L);
-        if(ratingAmount==0L || rating==0L){
-            ratingFinal=0L;
-        }else {
-            ratingFinal = rating/ratingAmount;
-        }
     }
 
     // Getters and setters
@@ -131,14 +123,6 @@ public class Trip {
 
     public void setRatingAmount(Long ratingAmount) {
         this.ratingAmount = ratingAmount;
-    }
-
-    public Long getRatingFinal() {
-        return ratingFinal;
-    }
-
-    public void setRatingFinal(Long ratingFinal) {
-        this.ratingFinal = ratingFinal;
     }
 
     @Override
