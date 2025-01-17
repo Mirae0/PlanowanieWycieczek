@@ -17,18 +17,18 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getUsers() {
+    public List<UserEntity> getUsers() {
         return userRepository.findAll();
     }
 
-    public User saveUser(User user) {
+    public UserEntity saveUser(UserEntity user) {
         return userRepository.save(user);
     }
 
-    public User findByUsername(String username) {return userRepository.findByUsername(username).orElse(null);}
+    public UserEntity findByUsername(String username) {return userRepository.findByUsername(username).orElse(null);}
 
 
-    public List<User> findUsersByEmail(String email) {
+    public List<UserEntity> findUsersByEmail(String email) {
         return userRepository.findAllByEmail(email);
     }
 

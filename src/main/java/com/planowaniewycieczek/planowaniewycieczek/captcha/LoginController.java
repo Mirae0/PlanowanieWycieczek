@@ -17,8 +17,8 @@ public class LoginController {
 
     private static final String GOOGLE_RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
 
-    @PostMapping("/loginP")
-    public String login(@RequestParam("name") String name,
+    @PostMapping("/login")
+    public String login(@RequestParam("email") String name,
                         @RequestParam("password") String password,
                         @RequestParam("g-recaptcha-response") String recaptchaResponse) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -27,9 +27,9 @@ public class LoginController {
         GoogleResponse googleResponse = restTemplate.postForObject(GOOGLE_RECAPTCHA_VERIFY_URL, params, GoogleResponse.class);
 
         if (googleResponse != null && googleResponse.isSuccess()) {
-            return "Logowanie powiodło się!";
+            return "user_home";
         } else {
-            return "Błąd weryfikacji reCAPTCHA. Spróbuj ponownie.";
+            return "login";
         }
     }
 }

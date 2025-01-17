@@ -43,7 +43,7 @@ public class UserControllerTest {
     @Test
     void testGetUsers() throws Exception {
         // Mockowanie serwisu
-        List<User> users = Arrays.asList(user1, user2);
+        List<UserEntity> users = Arrays.asList(user1, user2);
         when(userService.getUsers()).thenReturn(users);
 
         // Testowanie endpointu GET /api/user

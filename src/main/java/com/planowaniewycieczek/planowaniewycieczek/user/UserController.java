@@ -17,18 +17,18 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
+    public List<UserEntity> getUsers() {
         return userService.getUsers();
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
+    public UserEntity addUser(@RequestBody UserEntity user) {
         return userService.saveUser(user);
     }
 
     @PostMapping("/searchUserByEmail")
-    public List<User> searchUserByEmail(@RequestParam("email") String email) {
-        List<User> users = userService.findUsersByEmail(email);
+    public List<UserEntity> searchUserByEmail(@RequestParam("email") String email) {
+        List<UserEntity> users = userService.findUsersByEmail(email);
         return users;
     }
 

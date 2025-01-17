@@ -5,7 +5,7 @@
     <title data-i18n="title">Planowanie Wycieczek</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS2h/Kw1vZ38aCT3Nv6gCjr3pjyYfiu5jEr9a0ayjyWvZF5ckE5" crossorigin="anonymous">
-    <script type="text/javascript" th:src="@{/darkmode.js}" defer></script>
+    <script type="text/javascript" th:src="@{/js/darkmode.js}" defer></script>
     <script src="https://kit.fontawesome.com/ce8989e355.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -30,7 +30,7 @@
     <div class="login-header">
         <header data-i18n="header.register">Rejestracja</header>
     </div>
-    <form action="/register" method="post">
+    <form th:action="@{/register/user}" method="post">
         <div class="input-box">
             <input type="text" class="input-field" name="username" placeholder="Nazwa Użytkownika" data-i18n-placeholder="form.username" autocomplete="off" required>
         </div>
@@ -50,10 +50,11 @@
             </section>
         </div>
         <div class="input-submit">
-            <button type="submit" class="submit-btn" id="submit" data-i18n="form.submit">Zaloguj się</button>
+            <button type="submit" class="submit-btn" id="submit" data-i18n="form.submit">Zarejestruj się</button>
         </div>
     </form>
 </div>
+
 
 <button id="theme-switch">
     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">

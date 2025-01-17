@@ -29,6 +29,4 @@ public class TripService {
 //        for(Trip trip : all) {
 //        }
 //    }
-
-
 }

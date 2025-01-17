@@ -11,10 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-import org.springframework.data.domain.Sort;
 
 import org.slf4j.Logger;
 
@@ -22,13 +19,11 @@ import org.slf4j.Logger;
 @RequestMapping("/trips")
 public class TripController {
     private final TripService tripService;
-    private final TripRepository tripRepository;
     private static final Logger logger = LoggerFactory.getLogger(TripController.class);
 
     @Autowired
-    public TripController(TripService tripService, TripRepository tripRepository) {
+    public TripController(TripService tripService) {
         this.tripService = tripService;
-        this.tripRepository = tripRepository;
     }
 
     @PostMapping("/dodajwycieczke")
@@ -48,11 +43,14 @@ public class TripController {
             if (trip.getVisibility() == null) {
                 trip.setVisibility("public");
             }
-            if (trip.getRating() == null) {
+            if(trip.getRating()==null){
                 trip.setRating(0L);
             }
-            if (trip.getRatingAmount() == null) {
+            if(trip.getRatingAmount()==null){
                 trip.setRatingAmount(0L);
+            }
+            if(trip.getRatingFinal()==null){
+                trip.setRatingFinal(0L);
             }
             tripService.saveTrip(trip);
 
@@ -85,57 +83,18 @@ public class TripController {
             return "dodajwycieczke";
         }
     }
-
+//
 //    @GetMapping("/ranking")
 //    public String ranking(Model model) {
 //        List<Trip> trips =
 //    }
 
+
     @GetMapping("/wycieczki")
-    public String getTrips(@RequestParam(defaultValue = "all") String visibility,
-                           @RequestParam(defaultValue = "name-asc") String sortBy,
-                           Model model) {
-        // Pobieranie sortowania na podstawie wartości sortBy
-        Sort sort = getSortOrder(sortBy);
-        List<Trip> trips;
-
-        // Filtrowanie według widoczności
-        switch (visibility) {
-            case "public":
-                trips = tripRepository.findByVisibility("public", sort);
-                break;
-            case "private":
-                trips = tripRepository.findByVisibility("private", sort);
-                break;
-            case "friends":
-                trips = tripRepository.findByVisibility("friends", sort);
-                break;
-            default:
-                trips = tripRepository.findAll(sort);
-        }
-
+    public String getTrips(Model model) {
+        List<Trip> trips = tripService.getAllTrips();
         model.addAttribute("trips", trips);
-        model.addAttribute("visibility", visibility);
-        model.addAttribute("sortBy", sortBy);
-
         return "wycieczki";
     }
 
-    // Metoda pomocnicza dla sortowania
-    private Sort getSortOrder(String sortBy) {
-        switch (sortBy) {
-            case "name-desc":
-                return Sort.by(Sort.Order.desc("fromLocation"));
-            case "date-asc":
-                return Sort.by(Sort.Order.asc("tripDate"));
-            case "date-desc":
-                return Sort.by(Sort.Order.desc("tripDate"));
-            case "visibility":
-                return Sort.by(Sort.Order.asc("visibility"));
-            default: // Domyślnie sortowanie po nazwie rosnąco
-                return Sort.by(Sort.Order.asc("fromLocation"));
-        }
-    }
-
-    
 }
