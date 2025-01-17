@@ -1,7 +1,7 @@
 package com.planowaniewycieczek.planowaniewycieczek.home;
 
 import com.planowaniewycieczek.planowaniewycieczek.trip.TripService;
-import com.planowaniewycieczek.planowaniewycieczek.user.User;
+import com.planowaniewycieczek.planowaniewycieczek.user.UserEntity;
 import com.planowaniewycieczek.planowaniewycieczek.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,7 +67,10 @@ public class HomeControllerTest {
     @Test
     public void testLoginSubmitSuccess() throws Exception {
         // Przygotowanie danych testowych
-        User testUser = new User("john_doe", "password123", "john.doe@example.com");
+        UserEntity testUser = new UserEntity();
+        testUser.setUsername("john_doe");
+        testUser.setPassword("password123");
+        testUser.setEmail("john.doe@example.com");
         when(userService.findByUsername("john_doe")).thenReturn(testUser);
 
         mockMvc.perform(post("/login")
@@ -83,7 +86,10 @@ public class HomeControllerTest {
     @Test
     public void testLoginSubmitFailure() throws Exception {
         // Przygotowanie danych testowych
-        User testUser = new User("john_doe", "password123", "john.doe@example.com");
+        UserEntity testUser = new UserEntity();
+        testUser.setUsername("john_doe");
+        testUser.setPassword("password123");
+        testUser.setEmail("john.doe@example.com");
         when(userService.findByUsername("john_doe")).thenReturn(testUser);
 
         mockMvc.perform(post("/login")
@@ -106,7 +112,10 @@ public class HomeControllerTest {
 
     @Test
     public void testRegisterUser() throws Exception {
-        User testUser = new User("john_doe", "password123", "john.doe@example.com");
+        UserEntity testUser = new UserEntity();
+        testUser.setUsername("john_doe");
+        testUser.setPassword("password123");
+        testUser.setEmail("john.doe@example.com");
         when(userService.saveUser(testUser)).thenReturn(testUser);
 
         mockMvc.perform(post("/register")

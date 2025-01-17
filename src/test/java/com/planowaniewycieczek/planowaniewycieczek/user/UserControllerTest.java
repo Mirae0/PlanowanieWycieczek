@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -28,16 +29,23 @@ public class UserControllerTest {
 
     private ObjectMapper objectMapper;
 
-    private User user1;
-    private User user2;
+    private UserEntity user1;
+    private UserEntity user2;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setUp() {
         objectMapper = new ObjectMapper();
 
         // Przykładowe dane użytkowników
-        user1 = new User("john_doe", "password123", "john@example.com");
-        user2 = new User("jane_doe", "password456", "jane@example.com");
+        user1.setUsername("username1");
+        user1.setPassword(passwordEncoder.encode("password1"));
+        user1.setEmail("email1");
+
+        user2.setUsername("username2");
+        user2.setPassword(passwordEncoder.encode("password2"));
+        user2.setEmail("email2");
     }
 
     @Test
@@ -58,7 +66,7 @@ public class UserControllerTest {
     @Test
     void testAddUser() throws Exception {
         // Mockowanie serwisu
-        when(userService.saveUser(Mockito.any(User.class))).thenReturn(user1);
+        when(userService.saveUser(Mockito.any(UserEntity.class))).thenReturn(user1);
 
         // Testowanie endpointu POST /api/user
         mockMvc.perform(post("/api/user")
@@ -72,7 +80,7 @@ public class UserControllerTest {
     @Test
     void testSearchUserByEmail() throws Exception {
         // Mockowanie serwisu
-        List<User> users = Arrays.asList(user1);
+        List<UserEntity> users = Arrays.asList(user1);
         when(userService.findUsersByEmail("john@example.com")).thenReturn(users);
 
         // Testowanie endpointu POST /api/user/searchUserByEmail

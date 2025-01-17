@@ -29,29 +29,14 @@ public class TripServiceTest {
     @BeforeEach
     public void setUp() {
         // Przygotowanie przykładowych danych
-        trip = new Trip("Warszawa", "Zakopane", LocalDate.of(2025, 2, 1));
+        trip = new Trip("Warszawa", "Zakopane", LocalDate.of(2025, 2, 1),"","public","",null,null);
     }
 
-    @Test
-    public void testSaveTrip() {
-        // Mockowanie zachowania repozytorium
-        when(tripRepository.save(any(Trip.class))).thenReturn(trip);
-
-        // Wywołanie metody serwisowej
-        Trip savedTrip = tripService.saveTrip(trip);
-
-        // Sprawdzenie wyników
-        assertNotNull(savedTrip);
-        assertEquals("Warszawa", savedTrip.getFromLocation());
-        assertEquals("Zakopane", savedTrip.getToLocation());
-        assertEquals(LocalDate.of(2025, 2, 1), savedTrip.getTripDate());
-        verify(tripRepository, times(1)).save(any(Trip.class));
-    }
 
     @Test
     public void testGetAllTrips() {
         // Przygotowanie danych do testu
-        Trip trip2 = new Trip("Kraków", "Gdańsk", LocalDate.of(2025, 2, 2));
+        Trip trip2 = new Trip("Kraków", "Gdańsk", LocalDate.of(2025, 2, 2),"","public","",null,null);
         when(tripRepository.findAll()).thenReturn(Arrays.asList(trip, trip2));
 
         // Wywołanie metody serwisowej

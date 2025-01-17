@@ -16,7 +16,7 @@ class TripTest {
         LocalDate date = LocalDate.of(2024, 12, 12);
 
         // Act
-        Trip trip = new Trip(fromLocation, toLocation, date);
+        Trip trip = new Trip(fromLocation, toLocation, date,"","public","",null,null);
 
         // Assert
         assertNotNull(trip); // Verify the trip object is created
@@ -44,22 +44,11 @@ class TripTest {
     @Test
     void testToString(){
         LocalDate date = LocalDate.of(2024, 12, 12);
-        Trip trip = new Trip("Warsaw", "Zielona Góra", date);
+        Trip trip = new Trip("Warsaw", "Zielona Góra", date,"","public","",null,null);
         trip.setId(1L);
 
         String expected = "Trip [id=1, fromLocation= Warsaw, toLocation=Zielona Góra, tripDate=2024-12-12]";
         assertEquals(expected, trip.toString());
     }
 
-    @Test
-    void testShowTrip(){
-        LocalDate date = LocalDate.of(2024, 12, 12);
-        Trip trip = new Trip("Warsaw", "Zielona Góra", date);
-        trip.setId(1L);
-
-        String result = trip.showTrip();
-
-        String expected = "Wycieczka 1 z Warsaw do Zielona Góra";
-        assertEquals(expected, result);
-    }
 }

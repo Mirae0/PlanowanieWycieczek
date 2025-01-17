@@ -47,7 +47,7 @@ class TripControllerTest {
 
     @Test
     void testAddTripBadRequest() throws Exception {
-        Trip trip = new Trip(null, "Zielona Góra", null); // Brak wymaganych pól
+        Trip trip = new Trip(null, "Zielona Góra", null,null,null,null); // Brak wymaganych pól
 
         mockMvc.perform(post("/api/trips")
                         .contentType(MediaType.APPLICATION_JSON)

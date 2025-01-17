@@ -18,14 +18,19 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    private User user1;
-    private User user2;
+    private UserEntity user1;
+    private UserEntity user2;
 
     @BeforeEach
     public void setUp() {
         // Przygotowanie danych testowych
-        user1 = new User("john_doe", "password123", "john.doe@example.com");
-        user2 = new User("jane_doe", "password123", "jane.doe@example.com");
+        user1.setUsername("username1");
+        user1.setPassword("");
+        user1.setEmail("email1");
+
+        user2.setUsername("username2");
+        user2.setPassword("");
+        user2.setEmail("email2");
     }
 
     @Test
